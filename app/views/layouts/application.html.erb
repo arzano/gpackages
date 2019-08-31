@@ -8,6 +8,16 @@
   <meta name="description" content="<%= "#{@description} in the " if @description %>Gentoo Packages Database">
   <link href="https://assets.gentoo.org/tyrian/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="https://assets.gentoo.org/tyrian/tyrian.min.css" rel="stylesheet" media="screen">
+
+  <!-- sticky footer -->
+  <style>
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="https://assets.gentoo.org/tyrian/bootstrap.min.js"></script>
