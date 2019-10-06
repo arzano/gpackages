@@ -5,7 +5,7 @@ var width = 600;
 
 var diameter = 960,
     format = d3.format(",d"),
-    color = d3.scale.category20c();
+    color = d3.scale.ordinal().range(["#DDDAEC", "#DDDFFF", "#FAFAFA", "#E1E1E1", "#DFF0D8", "#FCF8E3", "#F2DEDE", "#D9EDF7"]);
 
 var bubble = d3.layout.pack()
     .sort(null)
