@@ -1,5 +1,5 @@
 <ul class="kk-useflag-container <%= useflags.size > 10 ? 'kk-useflag-container-many' : 'kk-useflag-container-few' %>">
-<% useflags.each_pair do |flag, flag_data| %>
-  <li class="kk-useflag"><%= link_to flag, useflag_path(id: flag_data['name']), :title => strip_tags(flag_data['description']), 'data-toggle' => 'tooltip' %></li>
+<% useflags.each do |flag_data| %>
+    <li class="kk-useflag"><%= link_to flag_data['use_expand_prefix'].nil? ? flag_data['name'] : flag_data['name'].gsub(flag_data['use_expand_prefix'] + '_', '') , useflag_path(id: flag_data['name']), :title => strip_tags(flag_data['description']), 'data-toggle' => 'tooltip' %></li>
 <% end %>
 </ul>

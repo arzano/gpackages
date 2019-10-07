@@ -26,7 +26,29 @@ class PackageRepository < BaseRepository
     indexes :licenses, type: 'keyword'
     indexes :herds, type: 'keyword'
     indexes :maintainers, type: 'object'
-    indexes :useflags, type: 'object'
+    indexes :useflags do
+      indexes :local do
+        indexes :scope, type: 'keyword'
+        indexes :name, type: 'keyword'
+        indexes :description, type: 'text'
+        indexes :atom, type: 'keyword'
+        indexes :use_expand_prefix, type: 'keyword'
+      end
+      indexes :global do
+        indexes :scope, type: 'keyword'
+        indexes :name, type: 'keyword'
+        indexes :description, type: 'text'
+        indexes :atom, type: 'keyword'
+        indexes :use_expand_prefix, type: 'keyword'
+      end
+      indexes :use_expand do
+        indexes :scope, type: 'keyword'
+        indexes :name, type: 'keyword'
+        indexes :description, type: 'text'
+        indexes :atom, type: 'keyword'
+        indexes :use_expand_prefix, type: 'keyword'
+      end
+    end
     indexes :metadata_hash, type: 'keyword'
     indexes :created_at, type: 'date'
     indexes :updated_at, type: 'date'

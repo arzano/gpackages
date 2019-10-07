@@ -165,14 +165,14 @@ class Version
   private
 
   def calc_useflags
-    result = { local: {}, global: {}, use_expand: {} }
+    result = { local: [], global: [], use_expand: [] }
 
     local_flag_map = UseflagRepository.local_for(atom.gsub("-#{version}", ''))
     local_flags = local_flag_map.keys
 
     use.sort.each do |flag|
       if local_flags.include? flag
-        result[:local][flag] = local_flag_map[flag].to_hsh
+        result[:local] << local_flag_map[flag].to_hsh
       else
         useflag = UseflagRepository.find_by(:name, flag)
 
@@ -180,11 +180,9 @@ class Version
         next unless useflag
 
         if useflag.scope == 'global'
-          result[:global][useflag.name] = useflag.to_hsh
+          result[:global] << useflag.to_hsh
         elsif useflag.scope == 'use_expand'
-          prefix = useflag.use_expand_prefix.upcase
-          result[:use_expand][prefix] ||= {}
-          result[:use_expand][prefix][useflag.name.gsub(useflag.use_expand_prefix + '_', '')] = useflag.to_hsh
+          result[:use_expand] << useflag.to_hsh
         end
       end
     end
