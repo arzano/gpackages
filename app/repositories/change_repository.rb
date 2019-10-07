@@ -10,12 +10,13 @@ class ChangeRepository < BaseRepository
   klass Change
 
   mapping do
+    indexes :id, type: 'keyword'
     indexes :package, type: 'keyword'
     indexes :category, type: 'keyword'
     indexes :change_type, type: 'keyword'
     indexes :version, type: 'keyword'
     indexes :arches, type: 'keyword'
-    indexes :commit, type: 'object'
+    indexes :commit, type: 'keyword'
     indexes :created_at, type: 'date'
     indexes :updated_at, type: 'date'
   end

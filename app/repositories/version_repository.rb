@@ -13,6 +13,7 @@ class VersionRepository < BaseRepository
   klass Version
 
   mapping do
+    indexes :id, type: 'keyword'
     indexes :version, type: 'keyword'
     indexes :package, type: 'keyword'
     indexes :atom, type: 'keyword'

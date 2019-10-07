@@ -13,6 +13,7 @@ class UseflagRepository < BaseRepository
   klass Useflag
 
   mapping do
+    indexes :id, type: 'keyword'
     indexes :name, type: 'text'
     indexes :description, type: 'text'
     indexes :atom, type: 'keyword'

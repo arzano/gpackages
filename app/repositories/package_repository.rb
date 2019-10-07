@@ -15,6 +15,7 @@ class PackageRepository < BaseRepository
   klass Package
 
   mapping do
+    indexes :id, type: 'keyword'
     indexes :category, type: 'keyword'
     indexes :name, type: 'keyword'
     indexes :name_sort, type: 'keyword'
@@ -25,7 +26,13 @@ class PackageRepository < BaseRepository
     indexes :license, type: 'keyword'
     indexes :licenses, type: 'keyword'
     indexes :herds, type: 'keyword'
-    indexes :maintainers, type: 'object'
+    indexes :maintainers do
+      indexes :name, type: 'keyword'
+      indexes :description, type: 'text'
+      indexes :type, type: 'keyword'
+      indexes :restrict, type: 'keyword'
+      indexes :email, type: 'keyword'
+    end
     indexes :useflags do
       indexes :local do
         indexes :scope, type: 'keyword'
