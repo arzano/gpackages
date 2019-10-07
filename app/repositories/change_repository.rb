@@ -9,7 +9,7 @@ class ChangeRepository < BaseRepository
 
   klass Change
 
-  mapping do
+  mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
     indexes :package, type: 'keyword'
     indexes :category, type: 'keyword'

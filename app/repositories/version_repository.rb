@@ -12,7 +12,7 @@ class VersionRepository < BaseRepository
 
   klass Version
 
-  mapping do
+  mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
     indexes :version, type: 'keyword'
     indexes :package, type: 'keyword'

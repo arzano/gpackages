@@ -14,7 +14,7 @@ class PackageRepository < BaseRepository
 
   klass Package
 
-  mapping do
+  mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
     indexes :category, type: 'keyword'
     indexes :name, type: 'keyword'

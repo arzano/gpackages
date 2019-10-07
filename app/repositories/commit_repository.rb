@@ -9,7 +9,7 @@ class CommitRepository < BaseRepository
 
   klass Commit
 
-  mapping do
+  mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
     indexes :author, type: 'keyword'
     indexes :email, type: 'keyword'

@@ -9,7 +9,7 @@ class CategoryRepository < BaseRepository
 
   klass Category
 
-  mapping do
+  mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
     indexes :name, type: 'text'
     indexes :description, type: 'text'
