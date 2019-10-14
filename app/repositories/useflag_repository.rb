@@ -85,6 +85,15 @@ class UseflagRepository < BaseRepository
     map_by_name find_all_by(:scope, 'use_expand')
   end
 
+  # Parse the "created_at" and "updated_at" fields in the document
+  #
+  def deserialize(document)
+    hash = document['_source']
+    hash['created_at'] = Time.parse(hash['created_at']).utc if hash['created_at']
+    hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
+    Useflag.new hash
+  end
+
   private
 
   def map_by_name(collection)

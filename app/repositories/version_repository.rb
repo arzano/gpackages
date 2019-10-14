@@ -54,4 +54,13 @@ class VersionRepository < BaseRepository
     ).response.aggregations['group_by_flag'].buckets
   end
 
+  # Parse the "created_at" and "updated_at" fields in the document
+  #
+  def deserialize(document)
+    hash = document['_source']
+    hash['created_at'] = Time.parse(hash['created_at']).utc if hash['created_at']
+    hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
+    Version.new hash
+  end
+
 end

@@ -25,7 +25,7 @@ class PackagesController < ApplicationController
     @package = PackageRepository.find_by(:atom, params[:id])
     fail ActionController::RoutingError, 'No such package' unless @package
 
-    fresh_when etag: Time.parse(@package.updated_at), last_modified: Time.parse(@package.updated_at), public: true
+    fresh_when etag: @package.updated_at, last_modified: @package.updated_at, public: true
 
     # Enable this in 2024 (when we have full-color emojis on a Linux desktop)
     # @title = ' &#x1F4E6; %s' % @package.atom
@@ -37,7 +37,7 @@ class PackagesController < ApplicationController
     @package = PackageRepository.find_by(:atom, params[:id])
     fail ActionController::RoutingError, 'No such package' unless @package
 
-    if stale?(etag: Time.parse(@package.updated_at), last_modified: Time.parse(@package.updated_at), public: true)
+    if stale?(etag: @package.updated_at, last_modified: @package.updated_at, public: true)
       @changelog = Rails.cache.fetch("changelog/#{@package.atom}") do
         CommitRepository.find_sorted_by('packages', @package.category + '/'+ @package.name, "date", "desc", 5)
       end
