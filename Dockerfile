@@ -13,8 +13,13 @@ RUN emerge net-libs/nodejs
 RUN emerge sys-process/cronie
 # Bundler is how we install the ruby stuff.
 RUN mkdir -p /etc/portage/package.accept_keywords/
-RUN echo "=dev-ruby/bundler-1.17.3 ~amd64" >> /etc/portage/package.accept_keywords/bundler
-RUN emerge =dev-ruby/bundler-1.17.3
+RUN echo "=dev-ruby/rdoc-6.2.0 ~amd64" >> /etc/portage/package.accept_keywords/ruby
+RUN echo "=dev-lang/ruby-2.5.6 ~amd64" >> /etc/portage/package.accept_keywords/ruby
+
+RUN emerge =dev-lang/ruby-2.5.6
+RUN gem install bundler
+
+RUN emerge dev-vcs/git
 
 # Needed for changelogs.
 RUN git clone https://anongit.gentoo.org/git/repo/gentoo.git /mnt/packages-tree/gentoo/
