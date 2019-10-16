@@ -6,6 +6,10 @@ class ActiveSupport::TestCase
   # Import some test data into the test indices
   category = Portage::Repository::Category.new('test/fixtures/repo/virtual')
   Category.new.import!(category)
+
+  package = Portage::Repository::Package.new('test/fixtures/repo/virtual/packages')
+  Package.new.import!(package, { package_state: 'new' })
+
   UseflagsUpdateJob.new.perform
   # Add more helper methods to be used by all tests here...
 end
