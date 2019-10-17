@@ -33,6 +33,8 @@ gem 'sidekiq', require: false
 
 gem 'rdiscount'
 
+gem 'parslet'
+
 # UI
 gem 'octicons_helper'
 

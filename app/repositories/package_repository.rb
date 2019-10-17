@@ -1,5 +1,6 @@
 require 'forwardable'
 require 'singleton'
+require_relative './query_parser/search_query_parser'
 
 class PackageRepository < BaseRepository
   include Singleton
@@ -62,16 +63,7 @@ class PackageRepository < BaseRepository
   end
 
   def suggest(q)
-    PackageRepository.search(
-      size: 20,
-      query: {
-        wildcard: {
-          name_sort: {
-            wildcard: q.downcase + '*'
-          }
-        }
-      }
-    )
+    search(build_query(q, 20, 0))
   end
 
   # Tries to resolve a query atom to one or more packages
@@ -114,22 +106,20 @@ class PackageRepository < BaseRepository
   def default_search(q, offset)
     return [] if q.nil? || q.empty?
 
-    part1, part2 = q.split('/', 2)
+    search(build_query(q, default_search_size, offset))
 
-    if part2.nil?
-      search(build_query(part1, nil, default_search_size, offset))
-    else
-      search(build_query(part2, part1, default_search_size, offset))
-    end
   end
 
-  def build_query(q, category, size, offset)
+  def build_query(q, size, offset)
+    parser = Object.const_get("SearchQueryParser::QueryParser").new
+    transformer = Object.const_get("SearchQueryParser::QueryTransformer").new
+
     {
       size: size,
       from: offset,
       query: {
         function_score: {
-          query: { bool: bool_query_parts(q, category) },
+          query: { bool: transformer.apply(parser.parse(q)).to_elasticsearch },
           functions: scoring_functions
         }
       }
