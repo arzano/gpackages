@@ -13,6 +13,7 @@ en:
   architectures: "Architectures"
   about: "About"
   help: "Help"
+  queries: "Advanced Search Queries"
   feedback: "Feedback"
   find_packages: "Find Packages"
   atom_feed: "Atom feed"
