@@ -103,10 +103,10 @@ class PackageRepository < BaseRepository
     25
   end
 
-  def default_search(q, offset)
+  def default_search(q, offset, search_size=default_search_size)
     return [] if q.nil? || q.empty?
 
-    search(build_query(q, default_search_size, offset))
+    search(build_query(q, search_size , offset))
 
   end
 

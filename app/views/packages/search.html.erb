@@ -1,4 +1,5 @@
-<h1 class="first-header">Search Results <small>for <%= params[:q] %></small></h1>
+<h1 class="first-header">Search Results <small>for <%= params[:q] %></small>
+  <%= feed_icon search_packages_url(format: :atom, params: request.query_parameters) %></h1>
 
 <% if @packages.size > 0 %>
 <div class="panel panel-default">
@@ -15,6 +16,9 @@
     </div>
   </div>
 </div>
+<% content_for :head do %>
+  <%= alternate_feed_link(search_packages_url(format: :atom, params: request.query_parameters), t(:atom_feed)) %>
+<% end %>
 <% else %>
 <div class="jumbotron">
   <h2 class="site-welcome stick-top">Nothing found. :( Try again?</h2>

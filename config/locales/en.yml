@@ -96,6 +96,7 @@ en:
   feed_added_arch: "Gentoo Packages: Added packages on %{arch}"
   feed_added_title: "%{atom} (%{description})"
   feed_added_content: "%{atom} is now available in Gentoo on these architectures: %{arches}"
+  feed_search_results: "Gentoo Packages for search query: %{query}"
   feed_updated: "Gentoo Packages: Updated packages"
   feed_updated_arch: "Gentoo Packages: Updated packages on %{arch}"
   feed_updated_title: "%{atom} (%{description})"
@@ -108,5 +109,6 @@ en:
   feed_keyworded_arch: "Gentoo Packages: Newly keyworded packages on %{arch}"
   feed_keyworded_title: "%{atom} (%{description})"
   feed_keyworded_content: "%{atom} is now keyworded on these architectures: %{arches}"
+  feed_commit_content: "#%{hash}: %{message}"
   # <meta> descriptions
   desc_categories_show: "Gentoo package category %{category}: %{description}"
