@@ -1,3 +1,5 @@
+require 'open-uri'
+
 # Helpers for displaying package models
 module PackagesHelper
   def restrict_label(version)
@@ -90,4 +92,10 @@ module PackagesHelper
 
     nil
   end
+
+  def documentation_label(package)
+    doc = Nokogiri::XML(open("https://wiki.gentoo.org/api.php?action=query&titles=" + package + "&format=xml"))
+    doc.xpath("//api/query/pages/page")[0].attr('missing').nil? ? (t :res_docs) : (t :res_search_docs)
+  end
+
 end

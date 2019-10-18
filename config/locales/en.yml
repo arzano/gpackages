@@ -59,6 +59,7 @@ en:
   view_git_changelog: "View Git Changelog"
   res_bugs: "Related bugs"
   res_docs: "Documentation"
+  res_search_docs: "Search for Documentation"
   res_forums: "Forums posts"
   res_repo: "Git repository browser"
   res_log: "Git log"
