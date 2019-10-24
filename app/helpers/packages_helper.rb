@@ -44,7 +44,7 @@ module PackagesHelper
 	#end
 
   def annotate_bugs(str)
-    annotated_str = str.gsub(/([bB]ug\s+|[bB]ug\s+#|#)(\d+)/) do
+    annotated_str = (h str).gsub(/([bB]ug\s+|[bB]ug\s+#|#)(\d+)/) do
       link_to_bug("#{$1}#{$2}", $2)
     end
 
