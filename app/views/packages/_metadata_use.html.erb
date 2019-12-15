@@ -7,7 +7,7 @@
   <%= render partial: 'useflag', object: useflags['global'], as: 'useflags' %>
 <% end %>
 <% unless useflags['use_expand'].empty? %>
-  <% useflags['use_expand'].each_pair do |flag, values| %>
+  <% useflags['use_expand'].group_by { |u| u['use_expand_prefix'] }.each_pair do |flag, values| %>
     <span class="kk-useflag-group"><%= t :use_expand_flag, flag: flag %></span>
     <%= render partial: 'useflag', object: values, as: 'useflags' %>
   <% end %>

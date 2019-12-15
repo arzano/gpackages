@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'about/feeds'
   get 'about/help'
   get 'about/changelog'
+  get 'about/queries'
 
   root 'index#index'
 

@@ -26,6 +26,12 @@ services:
       - type: "bind"
         source: "."
         target: "/var/www/packages.gentoo.org/htdocs/"
+      - type: volume
+        source: portage
+        target: /var/db/repos/gentoo
+      - type: volume
+        source: portage-git
+        target: /mnt/packages-tree
     environment:
       # "Redis:port" and "elasticsearch:port" refer to sibling containers.
       - REDIS_PROVIDER=REDIS_URL
@@ -38,16 +44,19 @@ services:
     depends_on:
       - redis
       - elasticsearch
-    command: >
-      bash -c " bundler install
-      && bundle exec rake assets:precompile
-      && bundle exec thin start -p 5000"
+    command: bash -c "/var/www/packages.gentoo.org/htdocs/bin/first-run development"
   sidekiq:
     build: .
     volumes:
       - type: "bind"
         source: "."
         target: "/var/www/packages.gentoo.org/htdocs/"
+      - type: volume
+        source: portage
+        target: /var/db/repos/gentoo
+      - type: volume
+        source: portage-git
+        target: /mnt/packages-tree
     environment:
       - RAILS_ENV=development
       - RAILS_SERVE_STATIC_FILES=1
@@ -66,8 +75,7 @@ services:
     ports:
       - 11211
   elasticsearch:
-    # TODO(antarus): We should build a docker image for this based on gentoo.
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.1
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -82,9 +90,12 @@ services:
       - 9200
   # elasticsearch browser
   dejavu:
-    image: appbaseio/dejavu:3.2.3
+    image: appbaseio/dejavu:3.4.0
     container_name: dejavu
     ports:
       - '1358:1358'
     links:
       - elasticsearch
+volumes:
+  portage:
+  portage-git:

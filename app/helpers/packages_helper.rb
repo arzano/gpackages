@@ -1,3 +1,5 @@
+require 'open-uri'
+
 # Helpers for displaying package models
 module PackagesHelper
   def restrict_label(version)
@@ -42,7 +44,7 @@ module PackagesHelper
 	#end
 
   def annotate_bugs(str)
-    annotated_str = str.gsub(/([bB]ug\s+|[bB]ug\s+#|#)(\d+)/) do
+    annotated_str = (h str).gsub(/([bB]ug\s+|[bB]ug\s+#|#)(\d+)/) do
       link_to_bug("#{$1}#{$2}", $2)
     end
 
@@ -79,15 +81,21 @@ module PackagesHelper
   # Tries to find a matching changelog entry for a change object
   def matching_changelog_entry(change)
     changelog = Rails.cache.fetch("changelog/#{cp_to_atom(change.category, change.package)}", expires_in: 10.minutes) do
-      Portage::Util::History.for(change.category, change.package, 5)
+      CommitRepository.find_sorted_by('packages', change.category + '/' + change.package, "date", "desc", 5)
     end
 
     changelog.each do |changelog_entry|
-      if changelog_entry[:files][:added].include?('%s-%s.ebuild' % [change.package, change.version])
+      if changelog_entry.files["added"].include?('%s/%s/%s-%s.ebuild' % [change.category, change.package, change.package, change.version])
         return changelog_entry
       end
     end
 
     nil
   end
+
+  def documentation_label(package)
+    doc = Nokogiri::XML(open("https://wiki.gentoo.org/api.php?action=query&titles=" + package + "&format=xml"))
+    doc.xpath("//api/query/pages/page")[0].attr('missing').nil? ? (t :res_docs) : (t :res_search_docs)
+  end
+
 end

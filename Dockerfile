@@ -10,8 +10,16 @@ ENV USE="-bindist"
 
 RUN emerge -C openssh
 RUN emerge net-libs/nodejs
+RUN emerge sys-process/cronie
 # Bundler is how we install the ruby stuff.
-RUN emerge dev-ruby/bundler
+RUN mkdir -p /etc/portage/package.accept_keywords/
+RUN echo "=dev-ruby/rdoc-6.2.0 ~amd64" >> /etc/portage/package.accept_keywords/ruby
+RUN echo "=dev-lang/ruby-2.5.6 ~amd64" >> /etc/portage/package.accept_keywords/ruby
+
+RUN emerge =dev-lang/ruby-2.5.6
+RUN gem install bundler
+
+RUN emerge dev-vcs/git
 
 # Needed for changelogs.
 RUN git clone https://anongit.gentoo.org/git/repo/gentoo.git /mnt/packages-tree/gentoo/
@@ -24,6 +32,7 @@ RUN bundler install
 # Git clones here.
 RUN cp /var/www/packages.gentoo.org/htdocs/config/secrets.yml.dist /var/www/packages.gentoo.org/htdocs/config/secrets.yml
 RUN sed -i 's/set_me/ENV["SECRET_KEY_BASE"]/'g /var/www/packages.gentoo.org/htdocs/config/secrets.yml
+RUN cp /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb.dist /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb
 
 # Precompile our assets.
 RUN bundle exec rake assets:precompile

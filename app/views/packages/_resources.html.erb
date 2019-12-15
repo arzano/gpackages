@@ -7,9 +7,9 @@
       <span class="fa fa-fw fa-bug"></span>
       <%= t :res_bugs %>
     </a>
-    <a href="https://wiki.gentoo.org/index.php?title=Special%3ASearch&fulltext=Search&search=<%= u package.name %>" class="list-group-item" target="_blank">
+    <a href="https://wiki.gentoo.org/wiki/Special:Search/<%= u package.name %>" class="list-group-item" target="_blank">
       <span class="fa fa-fw fa-book"></span>
-      <%= t :res_docs %>
+      <%= documentation_label(package.name) %>
     </a>
     <a href="https://forums.gentoo.org/search.php?search_terms=all&show_results=topics&search_keywords=<%= u package.name %>&mode=results" class="list-group-item" target="_blank">
       <span class="fa fa-fw fa-comments-o"></span>

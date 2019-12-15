@@ -8,21 +8,24 @@ class PackagesController < ApplicationController
 
   def search
     @offset = params[:o].to_i || 0
-    @packages = Package.default_search(params[:q], @offset)
+    @packages = PackageRepository.default_search(params[:q], @offset)
+    @query = params[:q]
+
+    render_packages_feed :packageinfo, t(:feed_search_results, query: params[:q] )
 
     redirect_to package_path(@packages.first).gsub('%2F', '/') if @packages.size == 1
   end
 
   def suggest
-    @packages = Package.suggest(params[:q])
+    @packages = PackageRepository.suggest(params[:q])
   end
 
   def resolve
-    @packages = Package.resolve(params[:atom])
+    @packages = PackageRepository.resolve(params[:atom])
   end
 
   def show
-    @package = Package.find_by(:atom, params[:id])
+    @package = PackageRepository.find_by(:atom, params[:id])
     fail ActionController::RoutingError, 'No such package' unless @package
 
     fresh_when etag: @package.updated_at, last_modified: @package.updated_at, public: true
@@ -34,12 +37,12 @@ class PackagesController < ApplicationController
   end
 
   def changelog
-    @package = Package.find_by(:atom, params[:id])
+    @package = PackageRepository.find_by(:atom, params[:id])
     fail ActionController::RoutingError, 'No such package' unless @package
 
     if stale?(etag: @package.updated_at, last_modified: @package.updated_at, public: true)
       @changelog = Rails.cache.fetch("changelog/#{@package.atom}") do
-        Portage::Util::History.for(@package.category, @package.name, 5)
+        CommitRepository.find_sorted_by('packages', @package.category + '/'+ @package.name, "date", "desc", 5)
       end
 
       respond_to do |wants|
@@ -78,6 +81,17 @@ class PackagesController < ApplicationController
         @feed_type = type
         @feed_title = title
         render template: 'feeds/changes'
+      end
+    end
+  end
+
+  def render_packages_feed(type, title)
+    respond_to do |wants|
+      wants.html {}
+      wants.atom do
+        @feed_type = type
+        @feed_title = title
+        render template: 'feeds/packages'
       end
     end
   end

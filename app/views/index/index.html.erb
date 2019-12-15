@@ -1,11 +1,16 @@
 <div class="jumbotron">
-  <h2 class="site-welcome stick-top">Welcome to the Home of <span class="text-primary"><%= number_with_delimiter Package.count %></span> Gentoo Packages</h2>
+  <h2 class="site-welcome stick-top">Welcome to the Home of <span class="text-primary"><%= number_with_delimiter PackageRepository.count %></span> Gentoo Packages</h2>
 
   <form action="<%= search_packages_path %>" method="get">
     <div class="typeahead-container">
       <div class="typeahead-field">
         <span class="typeahead-query">
           <input id="q" name="q" type="search" autocomplete="off" placeholder="<%= t :find_packages %>" aria-label="<%= t :find_packages %>" autofocus>
+        </span>
+        <span class="typeahead-button">
+          <button type="button" onclick="$('#searchHelp').modal('show')" title="Help" aria-label="<%= "Help" %>">
+            <span class="fa fa-question" style="font-size: 15px;"></span><span class="sr-only"><%= "Help" %></span>
+          </button>
         </span>
         <span class="typeahead-button">
           <button type="submit" title="<%= t :find %>" aria-label="<%= t :find %>">
@@ -43,11 +48,91 @@
   </div>
   <ul class="list-group">
     <% @version_bumps.each do |change|
-         _package = Package.find_by(:atom, cp_to_atom(change.category, change.package)) %>
+         _package = PackageRepository.find_by(:atom, cp_to_atom(change.category, change.package)) %>
       <%= render partial: 'packages/changed_package', object: change, as: 'change', locals: { package: _package, version: _package.version(change.version) } %>
     <% end %>
   </ul>
 </div>
 <% end %>
+
+<div class="modal fade" id="searchHelp" tabindex="-1" role="dialog" aria-labelledby="searchHelpTitle">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="searchHelpTitle"><span class="fa fa-info" style="font-size: 15px;"></span>&nbsp; Advanced Search Queries</h3>
+      </div>
+      <div class="modal-body">
+        Using the following forms you can compose advanced search queries instead of writing them manually.
+
+        <div id="search-container" style="margin-bottom:25px;">
+        <div class="row" style="margin-top:25px;">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8">
+            <div class="input-group">
+              <div class="input-group-btn">
+                <div class="btn-group">
+                  <button type="button" class="pgo-query-field btn btn-default dropdown-toggle" data-toggle="dropdown"><span>name</span>
+                    <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a onclick="updateDropdown(this);">name</a></li>
+                    <li><a onclick="updateDropdown(this);">category</a></li>
+                    <li><a onclick="updateDropdown(this);">atom</a></li>
+                    <li><a onclick="updateDropdown(this);">description</a></li>
+                    <li><a onclick="updateDropdown(this);">longdescription</a></li>
+                    <li><a onclick="updateDropdown(this);">license</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="updateDropdown(this);">maintainers.name</a></li>
+                    <li><a onclick="updateDropdown(this);">maintainers.description</a></li>
+                    <li><a onclick="updateDropdown(this);">maintainers.type</a></li>
+                    <li><a onclick="updateDropdown(this);">maintainers.restrict</a></li>
+                    <li><a onclick="updateDropdown(this);">maintainers.email</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="updateDropdown(this);">useflags.global.name</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.global.description</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.local.name</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.local.description</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.use_expand.name</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.use_expand.description</a></li>
+                    <li><a onclick="updateDropdown(this);">useflags.use_expand.use_expand_prefix</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="updateDropdown(this);">metadata_hash</a></li>
+                  </ul>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="pgo-query-operator btn btn-default dropdown-toggle" data-toggle="dropdown"><span>should match</span>
+                  <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a onclick="updateDropdown(this);">should match</a></li>
+                  <li><a onclick="updateDropdown(this);">must match</a></li>
+                  <li><a onclick="updateDropdown(this);">must not match</a></li>
+                </ul>
+                </div>
+              </div><!-- /btn-group -->
+              <input type="text" class="form-control" placeholder="e.g. gentoo-sources">
+            </div><!-- /input-group -->
+
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-2">
+                <span class="pgo-query-delete-btn fa fa-trash pull-right" style="font-size: 20px;margin-top:5px;" onclick="deleteInput(this);"></span>
+                <span class="pgo-query-add-btn fa fa-plus pull-right" style="font-size: 20px;margin-top:5px;" onclick="addInput();"></span>
+          </div>
+
+        </div><!-- /.row -->
+
+        </div>
+
+        Please refer to <a href="/about/queries">this page</a> for further information on advanced search queries and examples.
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="buildAdvancedQuery();" data-dismiss="modal">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'index/query_generator.js' %>
 
 <%= javascript_include_tag 'index/typeahead.js' %>

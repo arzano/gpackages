@@ -21,20 +21,20 @@ end
 
 json.use do
   json.local @package.versions.first.useflags[:local] do |flag|
-    json.name flag[1][:name]
-    json.description strip_tags flag[1][:description]
+    json.name flag[:name]
+    json.description strip_tags flag[:description]
   end
 
   json.global @package.versions.first.useflags[:global] do |flag|
-    json.name flag[1][:name]
-    json.description strip_tags flag[1][:description]
+    json.name flag[:name]
+    json.description strip_tags flag[:description]
   end
 
-  json.use_expand @package.versions.first.useflags[:use_expand] do |flag|
+  json.use_expand @package.versions.first.useflags[:use_expand].group_by { |u| u['use_expand_prefix'] } do |flag|
     json.set! flag[0] do
       json.array! flag[1] do |expand_flag|
-        json.name expand_flag[0]
-        json.description strip_tags expand_flag[1][:description]
+        json.name expand_flag[:name].gsub(expand_flag[:use_expand_prefix] + '_', '')
+        json.description strip_tags expand_flag[:description]
       end
     end
   end

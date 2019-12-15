@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0'
 # Use mysql as the database for Active Record
 # gem 'mysql2'
 # Use SCSS for stylesheets
@@ -23,8 +23,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 1.0', group: :doc
 
 # packages stuff
-gem 'elasticsearch-rails', '~> 5.0'
-gem 'elasticsearch-persistence', '~> 5.0'
+gem 'elasticsearch-rails', '~> 7.0.0'
+gem 'elasticsearch-persistence', '~> 7.0.0'
 
 gem 'nokogiri'
 gem 'thin'
@@ -33,8 +33,12 @@ gem 'sidekiq', require: false
 
 gem 'rdiscount'
 
+gem 'parslet'
+
 # UI
 gem 'octicons_helper'
+
+gem 'rails-controller-testing'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -63,8 +67,4 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-end
-
-group :test do
-  gem 'rails-controller-testing'
 end
