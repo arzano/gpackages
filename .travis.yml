@@ -24,7 +24,7 @@ before_install:
 before_script:
   - cp config/secrets.yml.dist config/secrets.yml
   # Wait for Elasticsearch
-  - sleep 10
+  - sleep 60
 
 script:
   - bundle exec rubocop
