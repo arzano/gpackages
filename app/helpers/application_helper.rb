@@ -37,7 +37,6 @@ module ApplicationHelper
   end
 
   def i18n_date(date, format = '%a, %e %b %Y %H:%M')
-
     date = Time.parse(date).utc if date.is_a? String
 
     content_tag :span,

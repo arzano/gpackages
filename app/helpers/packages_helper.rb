@@ -81,11 +81,11 @@ module PackagesHelper
   # Tries to find a matching changelog entry for a change object
   def matching_changelog_entry(change)
     changelog = Rails.cache.fetch("changelog/#{cp_to_atom(change.category, change.package)}", expires_in: 10.minutes) do
-      CommitRepository.find_sorted_by('packages', change.category + '/' + change.package, "date", "desc", 5)
+      CommitRepository.find_sorted_by('packages', change.category + '/' + change.package, 'date', 'desc', 5)
     end
 
     changelog.each do |changelog_entry|
-      if changelog_entry.files["added"].include?('%s/%s/%s-%s.ebuild' % [change.category, change.package, change.package, change.version])
+      if changelog_entry.files['added'].include?('%s/%s/%s-%s.ebuild' % [change.category, change.package, change.package, change.version])
         return changelog_entry
       end
     end
@@ -94,8 +94,7 @@ module PackagesHelper
   end
 
   def documentation_label(package)
-    doc = Nokogiri::XML(open("https://wiki.gentoo.org/api.php?action=query&titles=" + package + "&format=xml"))
-    doc.xpath("//api/query/pages/page")[0].attr('missing').nil? ? (t :res_docs) : (t :res_search_docs)
+    doc = Nokogiri::XML(open('https://wiki.gentoo.org/api.php?action=query&titles=' + package + '&format=xml'))
+    doc.xpath('//api/query/pages/page')[0].attr('missing').nil? ? (t :res_docs) : (t :res_search_docs)
   end
-
 end
