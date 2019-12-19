@@ -11,7 +11,7 @@ class PackagesController < ApplicationController
     @packages = PackageRepository.default_search(params[:q], @offset)
     @query = params[:q]
 
-    render_packages_feed :packageinfo, t(:feed_search_results, query: params[:q] )
+    render_packages_feed :packageinfo, t(:feed_search_results, query: params[:q])
 
     redirect_to package_path(@packages.first).gsub('%2F', '/') if @packages.size == 1
   end
@@ -42,7 +42,7 @@ class PackagesController < ApplicationController
 
     if stale?(etag: @package.updated_at, last_modified: @package.updated_at, public: true)
       @changelog = Rails.cache.fetch("changelog/#{@package.atom}") do
-        CommitRepository.find_sorted_by('packages', @package.category + '/'+ @package.name, "date", "desc", 5)
+        CommitRepository.find_sorted_by('packages', @package.category + '/' + @package.name, 'date', 'desc', 5)
       end
 
       respond_to do |wants|
