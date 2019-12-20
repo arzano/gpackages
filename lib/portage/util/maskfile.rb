@@ -9,7 +9,8 @@ class Portage::Util::Maskfile
   end
 
   def parse!
-    return unless File.exists?(@path)
+    return unless File.exist?(@path)
+
     File.read(@path).split("\n\n").each do |raw_mask|
       comments = []
       atoms = []

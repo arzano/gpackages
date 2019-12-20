@@ -30,7 +30,7 @@ json.use do
     json.description strip_tags flag[:description]
   end
 
-  json.use_expand @package.versions.first.useflags[:use_expand].group_by { |u| u['use_expand_prefix'] } do |flag|
+  json.use_expand(@package.versions.first.useflags[:use_expand].group_by { |u| u['use_expand_prefix'] }) do |flag|
     json.set! flag[0] do
       json.array! flag[1] do |expand_flag|
         json.name expand_flag[:name].gsub(expand_flag[:use_expand_prefix] + '_', '')

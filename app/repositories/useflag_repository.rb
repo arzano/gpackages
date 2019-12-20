@@ -50,7 +50,7 @@ class UseflagRepository < BaseRepository
     processed_results = {}
     results.each do |result|
       processed_results[result.name] = if processed_results.key? result.name
-                                         Useflag.new ({ 'name' => result.name, 'description' => '(multiple definitions)', 'scope' => 'multi' })
+                                         Useflag.new('name' => result.name, 'description' => '(multiple definitions)', 'scope' => 'multi')
                                        else
                                          result
                                        end

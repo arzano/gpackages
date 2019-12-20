@@ -93,8 +93,10 @@ module PackagesHelper
     nil
   end
 
+  # rubocop:disable Security/Open
   def documentation_label(package)
     doc = Nokogiri::XML(open('https://wiki.gentoo.org/api.php?action=query&titles=' + package + '&format=xml'))
     doc.xpath('//api/query/pages/page')[0].attr('missing').nil? ? (t :res_docs) : (t :res_search_docs)
   end
+  # rubocop:enable Security/Open
 end
