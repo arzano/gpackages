@@ -345,7 +345,7 @@ Naming/PredicateName:
 
 # Offense count: 21
 # Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: io, id, to, by, on, in, at, ip, db
+# AllowedNames: io, id, to, by, on, in, at, ip, db, n
 Naming/UncommunicativeMethodParamName:
   Exclude:
     - 'app/models/useflag.rb'

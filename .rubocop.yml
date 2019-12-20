@@ -25,3 +25,17 @@ Metrics/ModuleLength:
 
 Metrics/ClassLength:
   Max: 200
+
+Naming/UncommunicativeMethodParamName:
+  AllowedNames:
+    - io
+    - id
+    - to
+    - by
+    - on
+    - in
+    - at
+    - ip
+    - db
+    - n
+    - q
