@@ -35,6 +35,7 @@ before_install:
 
 before_script:
   - cp config/secrets.yml.dist config/secrets.yml
+  - cp config/initializers/kkuleomi_config.rb.dist config/initializers/kkuleomi_config.rb
   # Wait for Elasticsearch
   # If it starts up in less than 10 seconds, this wins!
   - curl --retry-delay 1 --retry-connrefused --retry 10 --connect-timeout 1 --max-time 15 -o - 'http://127.0.0.1:9200/_cat/health?format=json&v&pretty'
