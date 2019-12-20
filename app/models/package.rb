@@ -35,7 +35,7 @@ class Package
     @created_at ||= DateTime.now
     @updated_at = DateTime.now
     ATTRIBUTES.each_with_object({}) do |attr, hash|
-      if value = send(attr)
+      if (value = send(attr))
         hash[attr] = value
       end
     end
