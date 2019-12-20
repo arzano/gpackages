@@ -26,5 +26,4 @@ class CategoryRepository < BaseRepository
     hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
     Category.new hash
   end
-
 end

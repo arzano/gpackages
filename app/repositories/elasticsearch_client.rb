@@ -1,5 +1,4 @@
 class ElasticsearchClient
-
   def self.default
     @default ||= Elasticsearch::Client.new host: ENV['ELASTICSEARCH_URL'] || 'localhost:9200'
   end
@@ -7,7 +6,6 @@ class ElasticsearchClient
   private
 
   def initialize(*)
-    raise "Should not be initialiazed"
+    raise 'Should not be initialiazed'
   end
-
 end

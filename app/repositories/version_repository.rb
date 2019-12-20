@@ -62,5 +62,4 @@ class VersionRepository < BaseRepository
     hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
     Version.new hash
   end
-
 end

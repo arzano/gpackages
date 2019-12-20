@@ -9,33 +9,29 @@ class Useflag
                 :description,
                 :atom,
                 :scope,
-                :use_expand_prefix]
+                :use_expand_prefix].freeze
   attr_accessor(*ATTRIBUTES)
   attr_reader :attributes
 
   validates :name, presence: true
 
-
-  def initialize(attr={})
-    attr.each do |k,v|
-      if ATTRIBUTES.include?(k.to_sym)
-        send("#{k}=", v)
-      end
+  def initialize(attr = {})
+    attr.each do |k, v|
+      send("#{k}=", v) if ATTRIBUTES.include?(k.to_sym)
     end
   end
 
   def attributes
-    @id = @name + '-' + (@atom || 'global' ) + '-' + @scope
+    @id = @name + '-' + (@atom || 'global') + '-' + @scope
     @created_at ||= DateTime.now
     @updated_at = DateTime.now
-    ATTRIBUTES.inject({}) do |hash, attr|
+    ATTRIBUTES.each_with_object({}) do |attr, hash|
       if value = send(attr)
         hash[attr] = value
       end
-      hash
     end
   end
-  alias :to_hash :attributes
+  alias to_hash attributes
 
   def all_fields
     [:name, :description, :atom, :scope, :use_expand_prefix]
@@ -57,6 +53,4 @@ class Useflag
     fields = all_fields if fields.empty?
     Hash[fields.map { |field| [field, send(field)] }]
   end
-
-
 end

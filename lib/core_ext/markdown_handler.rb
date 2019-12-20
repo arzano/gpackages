@@ -5,7 +5,7 @@ module MarkdownHandler
     @erb ||= ActionView::Template.registered_template_handler(:erb)
   end
 
-  def self.call(template, source)
+  def self.call(_template, _source)
     "RDiscount.new(begin;#{compiled_source};end).to_html"
   end
 end

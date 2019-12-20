@@ -36,8 +36,8 @@ module Packages
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     #config.active_record.raise_in_transactional_callbacks = true
-		# NOTE(antarus): Needed to make sidekiq happy?
-		config.autoloader = :classic
+    # NOTE(antarus): Needed to make sidekiq happy?
+    config.autoloader = :classic
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.css *.js)
 
     config.autoload_paths << Rails.root.join('lib')

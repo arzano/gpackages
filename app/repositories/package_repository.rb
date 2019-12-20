@@ -68,7 +68,7 @@ class PackageRepository < BaseRepository
 
   # Tries to resolve a query atom to one or more packages
   def resolve(atom)
-    [] if atom.nil? || atom.empty?
+    [] if atom.blank?
 
     PackageRepository.find_all_by(:atom, atom) + PackageRepository.find_all_by(:name, atom)
   end
@@ -92,10 +92,10 @@ class PackageRepository < BaseRepository
             # https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
             # ES actually dislikes large sizes like this (it defines 10k buckets basically) and it will be *very* expensive but lets try it and see.
             # Other limits in this app are also 10k mostly to 'make things fit kinda'.
-            size: 10000,
+            size: 10000
           }
         }
-      },
+      }
     ).response.aggregations['group_by_package'].buckets
   end
 
@@ -103,16 +103,15 @@ class PackageRepository < BaseRepository
     25
   end
 
-  def default_search(q, offset, search_size=default_search_size)
-    return [] if q.nil? || q.empty?
+  def default_search(q, offset, search_size = default_search_size)
+    return [] if q.blank?
 
-    search(build_query(q, search_size , offset))
-
+    search(build_query(q, search_size, offset))
   end
 
   def build_query(q, size, offset)
-    parser = Object.const_get("SearchQueryParser::QueryParser").new
-    transformer = Object.const_get("SearchQueryParser::QueryTransformer").new
+    parser = Object.const_get('SearchQueryParser::QueryParser').new
+    transformer = Object.const_get('SearchQueryParser::QueryTransformer').new
 
     {
       size: size,
@@ -136,7 +135,7 @@ class PackageRepository < BaseRepository
       should: [
         match_phrase(q_dwncsd),
         match_description(q)
-        ]
+      ]
     }
 
     query[:must] << [match_category(category)] if category
@@ -212,5 +211,4 @@ class PackageRepository < BaseRepository
     hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
     Package.new hash
   end
-
 end

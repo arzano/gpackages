@@ -1,7 +1,6 @@
 require 'parslet'
 
 module SearchQueryParser
-
   class QueryParser < Parslet::Parser
     rule(:term) { match('[^\s"]').repeat(1).as(:term) }
     rule(:quote) { str('"') }
@@ -20,17 +19,17 @@ module SearchQueryParser
   end
 
   class QueryTransformer < Parslet::Transform
-    rule(:clause => subtree(:clause)) do
+    rule(clause: subtree(:clause)) do
       if clause[:term]
         TermClause.new(clause[:operator]&.to_s, clause[:field], clause[:term].to_s)
       elsif clause[:phrase]
-        phrase = clause[:phrase].map { |p| p[:term].to_s }.join(" ")
+        phrase = clause[:phrase].map { |p| p[:term].to_s }.join(' ')
         PhraseClause.new(clause[:operator]&.to_s, clause[:field], phrase)
       else
         raise "Unexpected clause type: '#{clause}'"
       end
     end
-    rule(:query => sequence(:clauses)) { Query.new(clauses) }
+    rule(query: sequence(:clauses)) { Query.new(clauses) }
   end
 
   class Operator
@@ -72,14 +71,14 @@ module SearchQueryParser
     attr_accessor :should_clauses, :must_not_clauses, :must_clauses
 
     def initialize(clauses)
-      grouped = clauses.chunk { |c| c.operator }.to_h
+      grouped = clauses.chunk(&:operator).to_h
       self.should_clauses = grouped.fetch(:should, [])
       self.must_not_clauses = grouped.fetch(:must_not, [])
       self.must_clauses = grouped.fetch(:must, [])
     end
 
     def to_elasticsearch
-      query = { }
+      query = {}
 
       if should_clauses.any?
         query[:should] = should_clauses.map do |clause|
@@ -116,29 +115,29 @@ module SearchQueryParser
     def match(field, term)
       if field
         {
-            :match => {
-                field[:fieldname].to_s.to_sym => {
-                    :query => term
-                }
+          match: {
+            field[:fieldname].to_s.to_sym => {
+              query: term
             }
+          }
         }
       else
         {
-            :multi_match => {
-                :query => term,
-                :fields => ["atom^3", "name^2"]
-            }
+          multi_match: {
+            query: term,
+            fields: ['atom^3', 'name^2']
+          }
         }
       end
     end
 
     def match_phrase(field, phrase)
       {
-          :match_phrase => {
-              field ? field[:fieldname].to_s.to_sym : :name => {
-                  :query => phrase
-              }
+        match_phrase: {
+          field ? field[:fieldname].to_s.to_sym : :name => {
+            query: phrase
           }
+        }
       }
     end
   end

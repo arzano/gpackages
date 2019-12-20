@@ -23,7 +23,6 @@ class UseflagRepository < BaseRepository
     indexes :updated_at, type: 'date'
   end
 
-
   # Retrieves all flags sorted by their state
   def get_flags(name)
     result = { local: {}, global: [], use_expand: [] }
@@ -50,11 +49,11 @@ class UseflagRepository < BaseRepository
 
     processed_results = {}
     results.each do |result|
-      if processed_results.key? result.name
-        processed_results[result.name] = Useflag.new ({  "name"=> result.name,  "description" => '(multiple definitions)',  "scope" => 'multi' })
-      else
-        processed_results[result.name] = result
-      end
+      processed_results[result.name] = if processed_results.key? result.name
+                                         Useflag.new ({ 'name' => result.name, 'description' => '(multiple definitions)', 'scope' => 'multi' })
+                                       else
+                                         result
+                                       end
     end
 
     processed_results.values.sort { |a, b| a.name.length <=> b.name.length }
@@ -101,5 +100,4 @@ class UseflagRepository < BaseRepository
 
     map
   end
-
 end

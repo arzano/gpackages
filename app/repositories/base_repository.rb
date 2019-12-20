@@ -55,27 +55,26 @@ class BaseRepository
                    match_all: {}
                  }
                }
-             })
-     )
+             }
+           ))
   end
 
   # Returns the given number of records of this class sorted by a field.
   def find_sorted_by(field, value, sort_field, order, num_return, options = {})
     search({
-               size: num_return,
-               query: { term: { field => value } },
-               sort: { sort_field => { order: order } }
-           }.merge(options))
+      size: num_return,
+      query: { term: { field => value } },
+      sort: { sort_field => { order: order } }
+    }.merge(options))
   end
-
 
   # Returns n records of this class sorted by a field.
   def n_sorted_by(n, field, order, options = {})
     search({
-               size: n,
-               query: { match_all: {} },
-               sort: { field => { order: order } }
-           }.merge(options))
+      size: n,
+      query: { match_all: {} },
+      sort: { field => { order: order } }
+    }.merge(options))
   end
 
   # Returns all (by default 10k) records of this class sorted by a field.
@@ -104,5 +103,4 @@ class BaseRepository
     fields = all_fields if fields.empty?
     Hash[fields.map { |field| [field, send(field)] }]
   end
-
 end

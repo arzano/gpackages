@@ -2,23 +2,21 @@ require 'time'
 
 class Portage::Util::History
   class << self
-    def update()
+    def update
       return [] if KKULEOMI_DISABLE_GIT == true
 
       latest_commit_id = KKULEOMI_FIRST_COMMIT
-      latest_commit = CommitRepository.n_sorted_by(1, "date", "desc").first
+      latest_commit = CommitRepository.n_sorted_by(1, 'date', 'desc').first
 
-      unless latest_commit.nil?
-        latest_commit_id = latest_commit.id
-      end
+      latest_commit_id = latest_commit.id unless latest_commit.nil?
 
       git = Kkuleomi::Util::Exec
-          .cmd(KKULEOMI_GIT)
-          .in(KKULEOMI_RUNTIME_PORTDIR)
-          .args(
-            'log', '--name-status', '--no-merges', '--date=iso8601', "--reverse",
-            "#{latest_commit_id}..HEAD")
-          .run
+            .cmd(KKULEOMI_GIT)
+            .in(KKULEOMI_RUNTIME_PORTDIR)
+            .args(
+              'log', '--name-status', '--no-merges', '--date=iso8601', '--reverse',
+              "#{latest_commit_id}..HEAD")
+            .run
 
       raw_log, stderr, status = git.stdout, git.stderr, git.exit_status
       fail "Cannot get git log: #{stderr}" unless status == 0
@@ -29,11 +27,9 @@ class Portage::Util::History
     private
 
     def parse(raw_log)
-
       count = raw_log.split("\n\ncommit ").slice(0, 10000).size
 
       raw_log.split("\n\ncommit ").slice(0, 10000).each do |raw_commit|
-
         commit_lines = raw_commit.lines
 
         _id = commit_lines.shift.gsub('commit ', '').strip
@@ -56,9 +52,7 @@ class Portage::Util::History
         _raw_files.each do |file|
           mode, file = file.split "\t"
 
-          if file.strip.split('/').size >= 3
-            _packages <<  (file.strip.split('/')[0] + '/' + file.strip.split('/')[1])
-          end
+          _packages << (file.strip.split('/')[0] + '/' + file.strip.split('/')[1]) if file.strip.split('/').size >= 3
 
           case mode
             when 'M'
@@ -69,7 +63,6 @@ class Portage::Util::History
               _files[:added] << file.strip
           end
         end
-
 
         commit = Commit.new
         commit.id = _id
@@ -82,10 +75,7 @@ class Portage::Util::History
         CommitRepository.save(commit)
       end
 
-      if count >= 10000
-        CommitsUpdateJob.perform_later
-      end
-
+      CommitsUpdateJob.perform_later if count >= 10000
     end
   end
 end

@@ -5,29 +5,29 @@ class Version
   include ActiveModel::Validations
   include Kkuleomi::Store::Models::VersionImport
 
-  ATTRIBUTES = [:id,
-                :created_at,
-                :updated_at,
-                :version,
-                :package,
-                :atom,
-                :sort_key,
-                :slot,
-                :subslot,
-                :eapi,
-                :keywords,
-                :masks,
-                :use,
-                :restrict,
-                :properties,
-                :metadata_hash]
+  ATTRIBUTES = %i[id
+                  created_at
+                  updated_at
+                  version
+                  package
+                  atom
+                  sort_key
+                  slot
+                  subslot
+                  eapi
+                  keywords
+                  masks
+                  use
+                  restrict
+                  properties
+                  metadata_hash].freeze
   attr_accessor(*ATTRIBUTES)
   attr_reader :attributes
 
   validates :version, presence: true
 
-  def initialize(attr={})
-    attr.each do |k,v|
+  def initialize(attr = {})
+    attr.each do |k, v|
       if ATTRIBUTES.include?(k.to_sym)
         send("#{k}=", v)
       end
@@ -39,14 +39,13 @@ class Version
     @created_at ||= DateTime.now
     @updated_at = DateTime.now
 
-    ATTRIBUTES.inject({}) do |hash, attr|
+    ATTRIBUTES.each_with_object({}) do |attr, hash|
       if value = send(attr)
         hash[attr] = value
       end
-      hash
     end
   end
-  alias :to_hash :attributes
+  alias to_hash attributes
 
   # Returns the keywording state on a given architecture
   #

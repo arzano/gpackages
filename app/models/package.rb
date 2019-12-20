@@ -3,32 +3,30 @@ class Package
   include ActiveModel::Validations
   include Kkuleomi::Store::Models::PackageImport
 
-  ATTRIBUTES = [:id,
-                :created_at,
-                :updated_at,
-                :category,
-                :name,
-                :name_sort,
-                :atom,
-                :description,
-                :longdescription,
-                :homepage,
-                :license,
-                :licenses,
-                :herds,
-                :maintainers,
-                :useflags,
-                :metadata_hash]
+  ATTRIBUTES = %i[id
+                  created_at
+                  updated_at
+                  category
+                  name
+                  name_sort
+                  atom
+                  description
+                  longdescription
+                  homepage
+                  license
+                  licenses
+                  herds
+                  maintainers
+                  useflags
+                  metadata_hash].freeze
   attr_accessor(*ATTRIBUTES)
   attr_reader :attributes
 
   validates :name, presence: true
 
-  def initialize(attr={})
-    attr.each do |k,v|
-      if ATTRIBUTES.include?(k.to_sym)
-        send("#{k}=", v)
-      end
+  def initialize(attr = {})
+    attr.each do |k, v|
+      send("#{k}=", v) if ATTRIBUTES.include?(k.to_sym)
     end
   end
 
@@ -36,14 +34,13 @@ class Package
     @id = @atom
     @created_at ||= DateTime.now
     @updated_at = DateTime.now
-    ATTRIBUTES.inject({}) do |hash, attr|
+    ATTRIBUTES.each_with_object({}) do |attr, hash|
       if value = send(attr)
         hash[attr] = value
       end
-      hash
     end
   end
-  alias :to_hash :attributes
+  alias to_hash attributes
 
   def category_model
     @category_model ||= CategoryRepository.find_by(:name, category)

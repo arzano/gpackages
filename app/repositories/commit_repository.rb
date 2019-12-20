@@ -33,5 +33,4 @@ class CommitRepository < BaseRepository
     hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
     Commit.new hash
   end
-
 end

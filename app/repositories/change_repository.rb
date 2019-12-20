@@ -29,5 +29,4 @@ class ChangeRepository < BaseRepository
     hash['updated_at'] = Time.parse(hash['updated_at']).utc if hash['updated_at']
     Change.new hash
   end
-
 end

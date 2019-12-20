@@ -1,6 +1,5 @@
 module Kkuleomi::Store
-
-  def self.create_index(force = false)
+  def self.create_index(_force = false)
 		repositories = [
 			CategoryRepository,
 			PackageRepository,
