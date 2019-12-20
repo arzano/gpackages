@@ -61,9 +61,9 @@ group :development do
 
   # Rubocop modules to help with consistent style and to avoid common
   # issues.
-  gem 'rubocop', '0.73.0'
-  gem 'rubocop-performance', '1.4.0'
-  gem 'rubocop-rails', '2.2.1'
+  gem 'rubocop', '0.77.0'
+  gem 'rubocop-performance', '1.5.1'
+  gem 'rubocop-rails', '2.4.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

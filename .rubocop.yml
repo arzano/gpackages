@@ -7,6 +7,8 @@ require:
 AllCops:
   TargetRubyVersion: 2.5
   TargetRailsVersion: 6.0
+  Exclude:
+    - vendor/**/*
 
 Rails:
   Enabled: true
@@ -26,7 +28,7 @@ Metrics/ModuleLength:
 Metrics/ClassLength:
   Max: 200
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   AllowedNames:
     - io
     - id
