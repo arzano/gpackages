@@ -1,4 +1,5 @@
 language: ruby
+dist: bionic
 cache: bundler
 rvm:
   - 2.5.7
@@ -35,9 +36,8 @@ before_install:
 before_script:
   - cp config/secrets.yml.dist config/secrets.yml
   # Wait for Elasticsearch
-  - sleep 10
-  # Check ES output!
-  - curl --connect-timeout 1 -o - 'http://127.0.0.1:9200/_cat/health?format=json&v&pretty'
+  # If it starts up in less than 10 seconds, this wins!
+  - curl --retry-delay 1 --retry-connrefused --retry 10 --connect-timeout 1 --max-time 15 -o - 'http://127.0.0.1:9200/_cat/health?format=json&v&pretty'
 
 script:
   # This code needs style improvements before higher strictness in lint.
