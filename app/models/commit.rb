@@ -12,7 +12,6 @@ class Commit
                   created_at
                   updated_at].freeze
   attr_accessor(*ATTRIBUTES)
-  attr_reader :attributes
 
   def initialize(attr = {})
     attr.each do |k, v|

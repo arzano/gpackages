@@ -12,7 +12,6 @@ class Change
                   arches
                   commit].freeze
   attr_accessor(*ATTRIBUTES)
-  attr_reader :attributes
 
   validates :package, presence: true
 

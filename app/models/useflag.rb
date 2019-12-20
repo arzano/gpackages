@@ -11,7 +11,6 @@ class Useflag
                 :scope,
                 :use_expand_prefix].freeze
   attr_accessor(*ATTRIBUTES)
-  attr_reader :attributes
 
   validates :name, presence: true
 

@@ -20,7 +20,6 @@ class Package
                   useflags
                   metadata_hash].freeze
   attr_accessor(*ATTRIBUTES)
-  attr_reader :attributes
 
   validates :name, presence: true
 

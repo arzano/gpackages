@@ -22,7 +22,6 @@ class Version
                   properties
                   metadata_hash].freeze
   attr_accessor(*ATTRIBUTES)
-  attr_reader :attributes
 
   validates :version, presence: true
 
