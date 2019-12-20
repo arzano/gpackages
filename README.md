@@ -5,6 +5,10 @@ internally codenamed kkuleomi/꾸러미 which is Korean for package (who would h
 
 Copyright © 2015–17 [Alex Legler](mailto:a3li@gentoo.org)
 
+## Build status
+
+* [![Travis-CI Build Status](https://travis-ci.org/gentoo/gpackages.svg?branch=master)](https://travis-ci.org/gentoo/gpackages)
+
 ## Installation instructions
 
 ## Configuration
