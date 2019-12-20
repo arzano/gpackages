@@ -1,2 +1,3 @@
+# Subset of /usr/portage/profiles/use.desc for testing
+systemd - Enable use of systemd-specific libraries and features like socket activation or session tracking
 test - Enable dependencies and/or preparations necessary to run tests (usually controlled by FEATURES=test but can be toggled independently)
-
