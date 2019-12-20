@@ -30,6 +30,8 @@ before_install:
   - sudo dpkg -i --force-confnew elasticsearch-7.5.1-amd64.deb
   # Fix permissions from install
   - sudo chmod 0644 /etc/default/elasticsearch
+  # Shave startup time
+  - echo ES_STARTUP_SLEEP_TIME=1 | sudo tee -a /etc/default/elasticsearch >/dev/null
   # Start up again or fail
   - sudo service elasticsearch start && sudo service elasticsearch status || ( sudo journalctl -xe ; exit 1 )
 
