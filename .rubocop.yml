@@ -5,8 +5,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.4
-  TargetRailsVersion: 5.2
+  TargetRubyVersion: 2.5
+  TargetRailsVersion: 6.0
 
 Rails:
   Enabled: true
