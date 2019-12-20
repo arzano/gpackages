@@ -7,7 +7,3 @@ end
 Sidekiq.configure_client do |config|
   config.redis = { url: ENV.fetch("REDIS_URL", 'redis://localhost:6379') }
 end
-
-if Rails.env.production?
-	Sidekiq::Logging.logger.level = Logger::WARN
-end
