@@ -3,12 +3,24 @@ language: generic
 services:
   - docker
 
-# Disable the docker based build until we have a place to store the container images.
-# Otherwise the build takes really much time. 
+cache:
+  directories:
+    - docker_images
 
-#before_install:
-#  - travis_wait 60 docker build -q .
-#  - docker-compose build > /dev/null
+before_install:
+  - docker load -i docker_images/images.tar || true
+  - travis_wait 120 docker build -t pgo .
 
 #script:
-#  - docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
+#  # publish on dockerhub
+#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#  # publish on github packages
+#  - docker login -u USERNAME -p TOKEN docker.pkg.github.com
+#  - docker tag pgo gentoo/gpackages:latest
+#  - docker push gentoo/gpackages:latest
+#  - echo "Published docker image"
+#  # Run tests
+#  #- docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
+
+before_cache:
+  - docker save -o docker_images/images.tar $(docker images -a -q)
