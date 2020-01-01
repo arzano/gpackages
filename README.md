@@ -9,7 +9,11 @@ internally codenamed kkuleomi/꾸러미 which is Korean for package (who would h
 
 ## Installation instructions
 
-TODO
+```shell script
+ $ docker build -t gentoo/rails:latest .docker/gentoo-rails
+ $ docker build -t gentoo/gpackages:latest .
+ $ docker-compose up  
+```
 
 ## Configuration
 
