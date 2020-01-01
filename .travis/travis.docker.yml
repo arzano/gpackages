@@ -4,8 +4,7 @@ services:
   - docker
 
 env:
-  - DOCKER_CLIENT_TIMEOUT=120
-  - COMPOSE_HTTP_TIMEOUT=120
+  - DOCKER_CLIENT_TIMEOUT=120 COMPOSE_HTTP_TIMEOUT=120
 
 before_install:
   # TODO Upload the image to the official gentoo account and get rid of the mmagorsc account
