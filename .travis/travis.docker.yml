@@ -7,15 +7,15 @@ before_install:
   - docker pull mmagorsc/gentoo-rails:latest && docker tag mmagorsc/gentoo-rails:latest gentoo/rails:latest
   - docker build -t gentoo/gpackages:latest .
 
-## TODO Use either DockerHub or Github Packages and uncomment this block afterwards
-## Publish the docker image and run the tests
-#script:
-#  # publish on dockerhub
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#  # publish on github packages
-#  - docker login -u USERNAME -p TOKEN docker.pkg.github.com
-#  - docker tag pgo gentoo/gpackages:latest
-#  - docker push gentoo/gpackages:latest
-#  - echo "Published docker image"
-#  # Run tests
-#  #- docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
+script:
+  # Run tests
+  - docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
+  ## TODO Use either DockerHub or Github Packages and uncomment this block afterwards
+  ## Publish the docker image and run the tests
+  ## publish on dockerhub
+  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  ## publish on github packages
+  #- docker login -u USERNAME -p TOKEN docker.pkg.github.com
+  #- docker tag pgo gentoo/gpackages:latest
+  #- docker push gentoo/gpackages:latest
+  #- echo "Published docker image"
