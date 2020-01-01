@@ -4,6 +4,7 @@ services:
   - docker
 
 before_install:
+  # TODO Upload the image to the official gentoo account and get rid of the mmagorsc account
   - docker pull mmagorsc/gentoo-rails:latest && docker tag mmagorsc/gentoo-rails:latest gentoo/rails:latest
   - docker build -t gentoo/gpackages:latest .
 
@@ -11,11 +12,9 @@ script:
   # Run tests using the prebuild image
   - docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
   ## TODO Use either DockerHub or Github Packages and uncomment this block afterwards
-  ## Publish the docker image and run the tests
-  ## publish on dockerhub
+  ## Publish on DockerHub
   #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  ## publish on github packages
-  #- docker login -u USERNAME -p TOKEN docker.pkg.github.com
-  #- docker tag pgo gentoo/gpackages:latest
+  ## Publish on Github Packages
+  #- docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN docker.pkg.github.com
   #- docker push gentoo/gpackages:latest
   #- echo "Published docker image"
