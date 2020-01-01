@@ -49,6 +49,7 @@ script:
   - bundle exec rake tmp:create RAILS_ENV=test
   - bundle exec rake assets:precompile RAILS_ENV=test
   - bundle exec rake kkuleomi:index:init RAILS_ENV=test
+  - bundle exec rake kkuleomi:update:all RAILS_ENV=test
   - bundle exec rake test test/ RAILS_ENV=test
 
 # vim:ft=yaml et ts=2 sts=2 sw=2:
