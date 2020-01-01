@@ -9,7 +9,7 @@ version: '3.2'
 #
 services:
   http-serving:
-    # Build from Dockerfile in .
+    image: gentoo/gpackages:latest
     build: .
     ports:
       - 5000
@@ -37,6 +37,7 @@ services:
       - elasticsearch
     command: bash -c "cp /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb.test /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb && /var/www/packages.gentoo.org/htdocs/bin/test.sh"
   sidekiq:
+    image: gentoo/gpackages:latest
     build: .
     volumes:
       - type: "bind"
@@ -59,8 +60,7 @@ services:
       - redis
       - elasticsearch
     command: >
-      bash -c " bundler install
-      && bundle exec sidekiq -c 5 -e test"
+      bash -c " bundle exec sidekiq -c 5 -e test"
   memcache:
     image: memcached:latest
     ports:
@@ -80,14 +80,6 @@ services:
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     ports:
       - 9200
-  # elasticsearch browser
-  dejavu:
-    image: appbaseio/dejavu:3.4.0
-    container_name: dejavu
-    ports:
-      - '1358:1358'
-    links:
-      - elasticsearch
   redis:
     image: redis:4.0.6
     ports:

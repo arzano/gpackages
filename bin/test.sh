@@ -3,7 +3,7 @@
 # Wait for Elasticsearch to start up
 sleep 30
 
-bundler install
+#bundler install
 bundle exec rake tmp:create RAILS_ENV=test
 bundle exec rake assets:precompile RAILS_ENV=test
 bundle exec rake kkuleomi:index:init RAILS_ENV=test
