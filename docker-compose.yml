@@ -19,6 +19,7 @@ services:
   http-serving:
     # Build from Dockerfile in .
     image: gentoo/gpackages:latest
+    build: .
     ports:
       - 5000
     volumes:
@@ -43,6 +44,7 @@ services:
     command: bash -c "/var/www/packages.gentoo.org/htdocs/bin/first-run production"
   sidekiq:
     image: gentoo/gpackages:latest
+    build: .
     volumes:
       - type: volume
         source: portage
