@@ -35,7 +35,7 @@ services:
     depends_on:
       - redis
       - elasticsearch
-    command: bash -c "/var/www/packages.gentoo.org/htdocs/bin/test.sh"
+    command: bash -c "cp /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb.test /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb && /var/www/packages.gentoo.org/htdocs/bin/test.sh"
   sidekiq:
     build: .
     volumes:
