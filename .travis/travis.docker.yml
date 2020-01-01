@@ -8,7 +8,8 @@ before_install:
   - docker build -t gentoo/gpackages:latest .
 
 script:
-  # Run tests
+  # Run tests using the prebuild image
+  - sed -i 's/build:\s./image: gentoo\/gpackages:latest/'g docker-compose.test.yml
   - docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
   ## TODO Use either DockerHub or Github Packages and uncomment this block afterwards
   ## Publish the docker image and run the tests
