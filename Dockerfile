@@ -1,25 +1,4 @@
-FROM gentoo/portage:latest as portage
-FROM gentoo/stage3-amd64
-
-# Need a portage tree to build, use last nights.
-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
-# Sandbox doesn't work well in docker.
-
-ENV FEATURES="-userpriv -usersandbox -sandbox"
-ENV USE="-bindist"
-
-RUN emerge -C openssh
-RUN emerge net-libs/nodejs
-RUN emerge sys-process/cronie
-# Bundler is how we install the ruby stuff.
-RUN mkdir -p /etc/portage/package.accept_keywords/
-RUN echo "=dev-ruby/rdoc-6.2.0 ~amd64" >> /etc/portage/package.accept_keywords/ruby
-RUN echo "=dev-lang/ruby-2.5.6 ~amd64" >> /etc/portage/package.accept_keywords/ruby
-
-RUN emerge =dev-lang/ruby-2.5.6
-RUN gem install bundler
-
-RUN emerge dev-vcs/git
+FROM gentoo/rails:latest
 
 # Needed for changelogs.
 RUN git clone https://anongit.gentoo.org/git/repo/gentoo.git /mnt/packages-tree/gentoo/

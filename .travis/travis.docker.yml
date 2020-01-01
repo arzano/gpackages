@@ -9,8 +9,11 @@ cache:
 
 before_install:
   - docker load -i docker_images/images.tar || true
-  - travis_wait 120 docker build -t pgo .
+  - docker pull mmagorsc/gentoo-rails:latest && docker tag mmagorsc/gentoo-rails:latest gentoo/rails:latest
+  - docker build -t gentoo/gpackages:latest .
 
+## TODO Use either DockerHub or Github Packages and uncomment this block afterwards
+## Publish the docker image and run the tests
 #script:
 #  # publish on dockerhub
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
