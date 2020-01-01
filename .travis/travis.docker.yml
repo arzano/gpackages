@@ -3,12 +3,7 @@ language: generic
 services:
   - docker
 
-cache:
-  directories:
-    - docker_images
-
 before_install:
-  - docker load -i docker_images/images.tar || true
   - docker pull mmagorsc/gentoo-rails:latest && docker tag mmagorsc/gentoo-rails:latest gentoo/rails:latest
   - docker build -t gentoo/gpackages:latest .
 
@@ -24,6 +19,3 @@ before_install:
 #  - echo "Published docker image"
 #  # Run tests
 #  #- docker-compose -f docker-compose.test.yml up --exit-code-from http-serving
-
-before_cache:
-  - docker save -o docker_images/images.tar $(docker images -a -q)
