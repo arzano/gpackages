@@ -46,7 +46,7 @@ services:
     depends_on:
       - redis
       - elasticsearch
-    command: bash -c "/var/www/packages.gentoo.org/htdocs/bin/first-run development"
+    command: bash -c "cp config/initializers/kkuleomi_config.rb.dist config/initializers/kkuleomi_config.rb && /var/www/packages.gentoo.org/htdocs/bin/first-run development"
   sidekiq:
     image: gentoo/gpackages:latest
     build: .
