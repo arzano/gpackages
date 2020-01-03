@@ -6,21 +6,21 @@
       <input type="text" class="form-control form-control-xl" placeholder="Search packages in <%= @category.name %>">
     </p>-->
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">All packages</h3>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">All packages</h4>
       </div>
-      <table class="table">
+      <table class="table mb-0">
         <%= render partial: 'package_line', collection: @packages, as: 'package' %>
       </table>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Statistics</h3>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Statistics</h4>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <%= @packages.count %> <%= t :packages %>
       </div>
     </div>

@@ -23,15 +23,15 @@
 </div>
 
 <% cache("added-#{@new_packages.hash}") do %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
+<div class="card mb-4">
+  <div class="card-header">
+    <h4 class="mb-0">
       <span class="fa fa-fw fa-history"></span>
-      <%= link_to t(:added_packages), added_packages_path %>
-    </h3>
+      <%= link_to t(:added_packages), added_packages_path, class: "text-dark" %>
+    </h4>
   </div>
   <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped mb-0">
       <%= render partial: 'package', collection: @new_packages, as: 'change' %>
     </table>
   </div>
@@ -39,12 +39,12 @@
 <% end %>
 
 <% cache("updated-#{@version_bumps.hash}") do %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
+<div class="card mb-4">
+  <div class="card-header">
+    <h4 class="mb-0">
       <span class="fa fa-fw fa-asterisk"></span>
-      <%= link_to t(:updated_packages), updated_packages_path %>
-    </h3>
+      <%= link_to t(:updated_packages), updated_packages_path, class: "text-dark" %>
+    </h4>
   </div>
   <ul class="list-group">
     <% @version_bumps.each do |change|
@@ -55,12 +55,14 @@
 </div>
 <% end %>
 
-<div class="modal fade" id="searchHelp" tabindex="-1" role="dialog" aria-labelledby="searchHelpTitle">
+<div class="modal" id="searchHelp" tabindex="-1" role="dialog" aria-labelledby="searchHelpTitle">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title" id="searchHelpTitle"><span class="fa fa-info" style="font-size: 15px;"></span>&nbsp; Advanced Search Queries</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         Using the following forms you can compose advanced search queries instead of writing them manually.
@@ -70,45 +72,40 @@
           <div class="col-lg-2"></div>
           <div class="col-lg-8">
             <div class="input-group">
-              <div class="input-group-btn">
-                <div class="btn-group">
-                  <button type="button" class="pgo-query-field btn btn-default dropdown-toggle" data-toggle="dropdown"><span>name</span>
-                    <span class="caret"></span></button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a onclick="updateDropdown(this);">name</a></li>
-                    <li><a onclick="updateDropdown(this);">category</a></li>
-                    <li><a onclick="updateDropdown(this);">atom</a></li>
-                    <li><a onclick="updateDropdown(this);">description</a></li>
-                    <li><a onclick="updateDropdown(this);">longdescription</a></li>
-                    <li><a onclick="updateDropdown(this);">license</a></li>
-                    <li class="divider"></li>
-                    <li><a onclick="updateDropdown(this);">maintainers.name</a></li>
-                    <li><a onclick="updateDropdown(this);">maintainers.description</a></li>
-                    <li><a onclick="updateDropdown(this);">maintainers.type</a></li>
-                    <li><a onclick="updateDropdown(this);">maintainers.restrict</a></li>
-                    <li><a onclick="updateDropdown(this);">maintainers.email</a></li>
-                    <li class="divider"></li>
-                    <li><a onclick="updateDropdown(this);">useflags.global.name</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.global.description</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.local.name</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.local.description</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.use_expand.name</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.use_expand.description</a></li>
-                    <li><a onclick="updateDropdown(this);">useflags.use_expand.use_expand_prefix</a></li>
-                    <li class="divider"></li>
-                    <li><a onclick="updateDropdown(this);">metadata_hash</a></li>
-                  </ul>
-                </div>
-                <div class="btn-group">
-                  <button type="button" class="pgo-query-operator btn btn-default dropdown-toggle" data-toggle="dropdown"><span>should match</span>
-                  <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a onclick="updateDropdown(this);">should match</a></li>
-                  <li><a onclick="updateDropdown(this);">must match</a></li>
-                  <li><a onclick="updateDropdown(this);">must not match</a></li>
-                </ul>
-                </div>
-              </div><!-- /btn-group -->
+              <select class="custom-select pgo-query-field" id="inputGroupSelect02">
+                <optgroup label = "Package">
+                <option selected>name</option>
+                <option value="category">category</option>
+                <option value="atom">atom</option>
+                <option value="description">description</option>
+                <option value="longdescription">longdescription</option>
+                <option value="license">license</option>
+                </optgroup>
+                <optgroup label = "Maintainer">
+                <option value="maintainers.name">maintainers.name</option>
+                <option value="maintainers.description">maintainers.description</option>
+                <option value="maintainers.type">maintainers.type</option>
+                <option value="maintainers.restrict">maintainers.restrict</option>
+                <option value="maintainers.email">maintainers.email</option>
+                </optgroup>
+                <optgroup label = "Useflags">
+                <option value="useflags.global.name">useflags.global.name</option>
+                <option value="useflags.global.description">useflags.global.description</option>
+                <option value="useflags.local.name">useflags.local.name</option>
+                <option value="useflags.local.description">useflags.local.description</option>
+                <option value="useflags.use_expand.name">useflags.use_expand.name</option>
+                <option value="useflags.use_expand.description">useflags.use_expand.description</option>
+                <option value="useflags.use_expand.use_expand_prefix<">useflags.use_expand.use_expand_prefix</option>
+                </optgroup>
+                <optgroup label = "Metadata">
+                <option value="metadata_hash">metadata_hash</option>
+                </optgroup>
+              </select>
+              <select class="custom-select pgo-query-operator" id="inputGroupSelect02">
+                <option selected value="should match">should match</option>
+                <option value="must match">must match</option>
+                <option value="must not match">must not match</option>
+              </select>
               <input type="text" class="form-control" placeholder="e.g. gentoo-sources">
             </div><!-- /input-group -->
 

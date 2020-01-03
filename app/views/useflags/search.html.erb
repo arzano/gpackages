@@ -1,13 +1,13 @@
 <ol class="breadcrumb">
-  <li><a href="/"><%= t :home %></a></li>
-  <li><%= link_to t(:use_flags), useflags_path %></li>
-  <li class="active">Search</li>
+  <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
+  <li class="breadcrumb-item"><%= link_to t(:use_flags), useflags_path %></li>
+  <li class="breadcrumb-item active">Search</li>
 </ol>
 
 <h1>USE Flag Search Results <small>for <%= params[:q] %></small></h1>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
+<div class="card">
+  <div class="card-header">
     Results
   </div>
   <div class="list-group">

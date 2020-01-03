@@ -1,29 +1,29 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= t(:resources) %></h3>
+<div class="card">
+  <div class="card-header">
+    <h4 class="mb-0"><%= t(:resources) %></h4>
   </div>
   <div class="list-group">
-    <a href="https://bugs.gentoo.org/buglist.cgi?quicksearch=<%= u package.atom %>" class="list-group-item" target="_blank">
+    <a href="https://bugs.gentoo.org/buglist.cgi?quicksearch=<%= u package.atom %>" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-bug"></span>
       <%= t :res_bugs %>
     </a>
-    <a href="https://wiki.gentoo.org/wiki/Special:Search/<%= u package.name %>" class="list-group-item" target="_blank">
+    <a href="https://wiki.gentoo.org/wiki/Special:Search/<%= u package.name %>" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-book"></span>
       <%= documentation_label(package.name) %>
     </a>
-    <a href="https://forums.gentoo.org/search.php?search_terms=all&show_results=topics&search_keywords=<%= u package.name %>&mode=results" class="list-group-item" target="_blank">
+    <a href="https://forums.gentoo.org/search.php?search_terms=all&show_results=topics&search_keywords=<%= u package.name %>&mode=results" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-comments-o"></span>
       <%= t :res_forums %>
     </a>
-    <a href="https://gitweb.gentoo.org/repo/gentoo.git/tree/<%= package.atom %>" class="list-group-item" target="_blank">
+    <a href="https://gitweb.gentoo.org/repo/gentoo.git/tree/<%= package.atom %>" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-code-fork"></span>
       <%= t :res_repo %>
     </a>
-    <a href="https://gitweb.gentoo.org/repo/gentoo.git/log/<%= package.atom %>?showmsg=1" class="list-group-item" target="_blank">
+    <a href="https://gitweb.gentoo.org/repo/gentoo.git/log/<%= package.atom %>?showmsg=1" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-history"></span>
       <%= t :res_log %>
     </a>
-    <a href="https://gitweb.gentoo.org/repo/gentoo.git/atom/<%= package.atom %>?h=master" class="list-group-item" target="_blank">
+    <a href="https://gitweb.gentoo.org/repo/gentoo.git/atom/<%= package.atom %>?h=master" class="list-group-item list-group-item-action text-dark" target="_blank">
       <span class="fa fa-fw fa-rss"></span>
       <%= t :res_feed %>
     </a>

@@ -19,10 +19,14 @@ version: '3.2'
 services:
   http-serving:
     # Build from Dockerfile in .
+    image: gentoo/gpackages:latest
     build: .
     ports:
       - 5000
     volumes:
+      - type: "bind"
+        source: "."
+        target: "/var/www/packages.gentoo.org/htdocs/"
       - type: volume
         source: portage
         target: /var/db/repos/gentoo
@@ -44,8 +48,12 @@ services:
       - elasticsearch
     command: bash -c "/var/www/packages.gentoo.org/htdocs/bin/first-run development"
   sidekiq:
+    image: gentoo/gpackages:latest
     build: .
     volumes:
+      - type: "bind"
+        source: "."
+        target: "/var/www/packages.gentoo.org/htdocs/"
       - type: volume
         source: portage
         target: /var/db/repos/gentoo

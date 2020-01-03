@@ -7,7 +7,7 @@ bundler install
 yarn install --check-files
 bundle exec rake tmp:create RAILS_ENV=${1:-development}
 bundle exec rake tmp:cache:clear RAILS_ENV=${1:-development}
-bundle exec rake webpacker:compile RAILS_ENV=${1:-development}
+bundle exec rake webpacker:compile RAILS_ENV=production
 bundle exec rake kkuleomi:index:init RAILS_ENV=${1:-development}
 ./bin/update-all.sh ${1:-development}
 

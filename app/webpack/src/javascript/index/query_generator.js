@@ -1,7 +1,3 @@
-function updateDropdown(self) {
-    getThirdParent(self).querySelector('button > span:first-child').innerHTML = self.innerHTML;
-}
-
 function buildAdvancedQuery(){
     var query = ""
     document.querySelectorAll('#search-container > .row').forEach(function(element) {
@@ -13,8 +9,8 @@ function buildAdvancedQuery(){
             term = parseSearchTerm(term);
         }
 
-        var operator = parseOperator(element.querySelector('.pgo-query-operator > span:first-child').innerHTML);
-        var field = element.querySelector('.pgo-query-field > span:first-child').innerHTML;
+        var operator = parseOperator(element.querySelector(".pgo-query-operator").value);
+        var field = element.querySelector('.pgo-query-field').value;
 
         query += operator + field + ":" + term + " ";
     });
@@ -52,8 +48,8 @@ function addInput(self){
 
 function resetInput(input) {
     input.querySelector('.form-control').value = '';
-    input.querySelector('.pgo-query-operator > span:first-child').innerHTML = 'should match';
-    input.querySelector('.pgo-query-field > span:first-child').innerHTML = 'name';
+    input.querySelector('.pgo-query-operator').value = 'should match';
+    input.querySelector('.pgo-query-field').value = 'name';
 }
 
 function deleteInput(self){
@@ -91,3 +87,9 @@ function getSecondParent(self) {
 }
 
 checkDeleteButtons();
+
+windows.addInput = addInput
+
+$(".pgo-query-add-btn").click(function() {
+                         alert( "Handler for .click() called." );
+                       });

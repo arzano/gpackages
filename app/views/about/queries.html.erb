@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
-  <li><a href="/"><%= t :home %></a></li>
-  <li><a href="/about"><%= t :about %></a></li>
-  <li class="active"><%= t :queries %></li>
+  <li class="breadcrumb-item"><a href="/"><%= t :home %></a></li>
+  <li class="breadcrumb-item"><a href="/about"><%= t :about %></a></li>
+  <li class="breadcrumb-item active"><%= t :queries %></li>
 </ol>
 
 <h1><%= t :queries %></h1>
@@ -16,121 +16,125 @@ The possible fields and operators are summarized in the following tables:
 
 <hr>
 
-<h2 id="fields">Possible Fields</h2>
+<div class="card ml-5 mr-5 mb-5">
+  <h4 class="card-header" id="fields">Possible Fields</h4>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Field</th>
-    <th scope="col">Description</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th scope="row">atom</th>
-    <td>The unique identifier of a package <br> <i style="padding-left:2em">e.g. sys-kernel/gentoo-sources</i></td>
-  </tr>
-  <tr>
-    <th scope="row">category</th>
-    <td>The category of a package <br> <i style="padding-left:2em">e.g. sys-kernel</i></td>
-  </tr>
-  <tr>
-    <th scope="row">name</th>
-    <td>The name of a package <br> <i style="padding-left:2em">e.g. gentoo-sources</i></td>
-  </tr>
-  <tr>
-    <th scope="row">description</th>
-    <td>The description of a package <br> <i style="padding-left:2em">e.g. A tiling window manager</i> </td>
-  </tr>
-  <tr>
-    <th scope="row">longdescription</th>
-    <td>The full descripiton of a package <br> <i style="padding-left:2em">e.g. xmonad is a tiling window manager for [...]</i></td>
-  </tr>
-  <tr>
-    <th scope="row">homepage</th>
-    <td>The homepage of a package <br> <i style="padding-left:2em">e.g. http://xmonad.org</i></td>
-  </tr>
-  <tr>
-    <th scope="row">license</th>
-    <td>The license of a package <br> <i style="padding-left:2em">e.g. BSD</i></td>
-  </tr>
-  <tr>
-    <th scope="row">Maintainers</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">maintainers.name</th>
-    <td>The name of the maintainer <br> <i style="padding-left:2em">e.g. Gentoo Haskell</i></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">maintainers.description</th>
-    <td>The description of the maintainers</td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">maintainers.type</th>
-    <td>The type of maintainter <br> <i style="padding-left:2em">e.g. project</i></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">maintainers.restrict</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">maintainers.email</th>
-    <td>The email of the maintainer <br> <i style="padding-left:2em">e.g. haskell@gentoo.org</i></td>
-  </tr>
-  <tr>
-    <th scope="row">Useflag</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:1em">global</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.global.name</th>
-    <td>The name of the global useflag <br> <i style="padding-left:2em">e.g. hscolour</i></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.global.description</th>
-    <td>The description of the global useflag <br> <i style="padding-left:2em">e.g. Include coloured haskell sources to [...]</i></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:1em">local</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.local.name</th>
-    <td>The name of the local useflag</td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.local.description</th>
-    <td>The description of the local useflag</td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:1em">use_expand</th>
-    <td></td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.use_expand.name</th>
-    <td>The name of the local use_expand</td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.use_expand.description</th>
-    <td>The description of the use_expand</td>
-  </tr>
-  <tr>
-    <th scope="row" style="padding-left:2em">useflags.use_expand.use_expand_prefix</th>
-    <td>The use_expand prefix <br> <i style="padding-left:2em">e.g. python_targets</i></td>
-  </tr>
-  <tr>
-    <th scope="row">metadata_hash</th>
-    <td>The hash of the metadata <br> <i style="padding-left:2em">e.g. 5cd76e098f966b4edcd1848866dd9099</i></td>
-  </tr>
-  </tbody>
-</table>
-<h2 id="operators">Possible Operators</h2>
-The following operators can be used to combine multiple field/value pairs:
-<table class="table">
+  <table class="table mb-0">
+    <thead>
+    <tr>
+      <th scope="col">Field</th>
+      <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">atom</th>
+      <td>The unique identifier of a package <br> <i style="padding-left:2em">e.g. sys-kernel/gentoo-sources</i></td>
+    </tr>
+    <tr>
+      <th scope="row">category</th>
+      <td>The category of a package <br> <i style="padding-left:2em">e.g. sys-kernel</i></td>
+    </tr>
+    <tr>
+      <th scope="row">name</th>
+      <td>The name of a package <br> <i style="padding-left:2em">e.g. gentoo-sources</i></td>
+    </tr>
+    <tr>
+      <th scope="row">description</th>
+      <td>The description of a package <br> <i style="padding-left:2em">e.g. A tiling window manager</i> </td>
+    </tr>
+    <tr>
+      <th scope="row">longdescription</th>
+      <td>The full descripiton of a package <br> <i style="padding-left:2em">e.g. xmonad is a tiling window manager for [...]</i></td>
+    </tr>
+    <tr>
+      <th scope="row">homepage</th>
+      <td>The homepage of a package <br> <i style="padding-left:2em">e.g. http://xmonad.org</i></td>
+    </tr>
+    <tr>
+      <th scope="row">license</th>
+      <td>The license of a package <br> <i style="padding-left:2em">e.g. BSD</i></td>
+    </tr>
+    <tr>
+      <th scope="row">Maintainers</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">maintainers.name</th>
+      <td>The name of the maintainer <br> <i style="padding-left:2em">e.g. Gentoo Haskell</i></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">maintainers.description</th>
+      <td>The description of the maintainers</td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">maintainers.type</th>
+      <td>The type of maintainter <br> <i style="padding-left:2em">e.g. project</i></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">maintainers.restrict</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">maintainers.email</th>
+      <td>The email of the maintainer <br> <i style="padding-left:2em">e.g. haskell@gentoo.org</i></td>
+    </tr>
+    <tr>
+      <th scope="row">Useflag</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:1em">global</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.global.name</th>
+      <td>The name of the global useflag <br> <i style="padding-left:2em">e.g. hscolour</i></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.global.description</th>
+      <td>The description of the global useflag <br> <i style="padding-left:2em">e.g. Include coloured haskell sources to [...]</i></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:1em">local</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.local.name</th>
+      <td>The name of the local useflag</td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.local.description</th>
+      <td>The description of the local useflag</td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:1em">use_expand</th>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.use_expand.name</th>
+      <td>The name of the local use_expand</td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.use_expand.description</th>
+      <td>The description of the use_expand</td>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left:2em">useflags.use_expand.use_expand_prefix</th>
+      <td>The use_expand prefix <br> <i style="padding-left:2em">e.g. python_targets</i></td>
+    </tr>
+    <tr>
+      <th scope="row">metadata_hash</th>
+      <td>The hash of the metadata <br> <i style="padding-left:2em">e.g. 5cd76e098f966b4edcd1848866dd9099</i></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card ml-5 mr-5 mb-5">
+  <h4 class="card-header" id="operators">Possible Operators</h4>
+
+<table class="table mb-0">
   <thead>
   <tr>
     <th scope="col">Operator</th>
@@ -156,6 +160,7 @@ The following operators can be used to combine multiple field/value pairs:
   </tr>
   </tbody>
 </table>
+</div>
 
 <h2 id="examples">Examples</h2>
 

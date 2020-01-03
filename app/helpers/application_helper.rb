@@ -28,7 +28,7 @@ module ApplicationHelper
 
     content_tag :span,
                 letters.join(', '),
-                class: 'label %s' % css_class,
+                class: 'badge %s' % css_class,
                 title: t(message_id, list: items.join(' '))
   end
 

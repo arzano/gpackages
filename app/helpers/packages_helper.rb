@@ -4,13 +4,13 @@ require 'open-uri'
 module PackagesHelper
   def restrict_label(version)
     abbreviated_label version.restrict,
-                      'label-danger kk-restrict-label',
+                      'badge-danger kk-restrict-label',
                       :restrict_tooltip
   end
 
   def properties_label(version)
     abbreviated_label version.properties,
-                      'label-info kk-properties-label',
+                      'badge-info kk-properties-label',
                       :properties_tooltip
   end
 

@@ -1,16 +1,16 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
+<div class="card mb-3">
+  <div class="card-header">
+    <h4 class="mb-0">
       <%= t :box_versions %>
       <span class="pull-right">
         <a href="<%= about_help_path(anchor: 'keyword-legend') %>" aria-label="<%= t :show_table_legend %>" title="<%= t :legend %>" class="kk-box-meta-link" tabindex="0" role="button" id="kk-keyword-legend-btn">
           <span class="fa fa-fw fa-question-circle"></span>
         </a>
       </span>
-    </h3>
+    </h4>
   </div>
   <div class="table-responsive">
-    <table class="table table-bordered kk-versions-table">
+    <table class="table table-bordered kk-versions-table mb-0">
       <thead>
       <tr>
         <th class="kk-version kk-cell-sep-right"><%= t :version %></th>

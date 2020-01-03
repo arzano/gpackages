@@ -9,19 +9,19 @@
   <table class="table table-condensed kk-changelog-diffstat">
 
     <% unless changelog.files["added"].empty? %>
-      <tr class="success">
+      <tr class="kk-success">
         <td class="kk-changelog-diffstat-icon"><span class="octicon octicon-diff-added"></span></td>
         <td><%= safe_join(changelog.files["added"].select { |file| file.include?(@package.category + '/' + @package.name) }.map {|f| link_to_gitweb_ebuild_diff(f.split('/').last, changelog.id, @package.category, @package.name) }, ', ') %></td>
       </tr>
     <% end %>
     <% unless changelog.files["modified"].empty? %>
-      <tr class="warning">
+      <tr class="kk-warning">
         <td class="kk-changelog-diffstat-icon"><span class="octicon octicon-diff-modified"></span></td>
         <td><%= safe_join(changelog.files["modified"].select { |file| file.include?(@package.category + '/' + @package.name) }.map {|f| link_to_gitweb_ebuild_diff(f.split('/').last, changelog.id, @package.category, @package.name) }, ', ') %></td>
       </tr>
     <% end %>
     <% unless changelog.files["deleted"].empty? %>
-      <tr class="danger">
+      <tr class="kk-danger">
         <td class="kk-changelog-diffstat-icon"><span class="octicon octicon-diff-removed"></span></td>
         <td><%= safe_join(changelog.files["deleted"].select { |file| file.include?(@package.category + '/' + @package.name) }.map {|f| link_to_gitweb_ebuild_diff(f.split('/').last, changelog.id, @package.category, @package.name) }, ', ')  %></td>
       </tr>

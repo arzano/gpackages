@@ -4,38 +4,38 @@
     <div class="col-xs-12 col-md-6">
       <h4 class="stick-top"><%= link_to package.atom, slf(package_path(package.atom)) %></h4>
       <div class="kk-package-detailed-toolbox">
-        <div class="btn-group">
-        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+        <button type="button" class="kk-btn-xs btn btn-outline-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="fa fa-fw fa-navicon"></span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-right">
-          <li><a href="https://bugs.gentoo.org/buglist.cgi?quicksearch=<%= u package.atom %>" target="_blank">
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="https://bugs.gentoo.org/buglist.cgi?quicksearch=<%= u package.atom %>" target="_blank">
             <span class="fa fa-fw fa-bug"></span>
             <%= t :res_bugs %>
-          </a></li>
-          <li><a href="https://wiki.gentoo.org/index.php?title=Special%3ASearch&fulltext=Search&search=<%= u package.name %>" target="_blank">
+          </a>
+          <a class="dropdown-item" href="https://wiki.gentoo.org/index.php?title=Special%3ASearch&fulltext=Search&search=<%= u package.name %>" target="_blank">
             <span class="fa fa-fw fa-book"></span>
             <%= t :res_docs %>
-          </a></li>
-          <li><a href="https://forums.gentoo.org/search.php?search_terms=all&show_results=topics&search_keywords=<%= u package.name %>&mode=results" target="_blank">
+          </a>
+          <a class="dropdown-item" href="https://forums.gentoo.org/search.php?search_terms=all&show_results=topics&search_keywords=<%= u package.name %>&mode=results" target="_blank">
             <span class="fa fa-fw fa-comments-o"></span>
             <%= t :res_forums %>
-          </a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="https://gitweb.gentoo.org/repo/gentoo.git/tree/<%= package.atom %>" target="_blank">
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://gitweb.gentoo.org/repo/gentoo.git/tree/<%= package.atom %>" target="_blank">
             <span class="fa fa-fw fa-code-fork"></span>
             <%= t :res_repo %>
-          </a></li>
-          <li><a href="https://gitweb.gentoo.org/repo/gentoo.git/log/<%= package.atom %>?showmsg=1" target="_blank">
+          </a>
+          <a class="dropdown-item" href="https://gitweb.gentoo.org/repo/gentoo.git/log/<%= package.atom %>?showmsg=1" target="_blank">
             <span class="fa fa-fw fa-history"></span>
             <%= t :res_log %>
-          </a></li>
-          <li><a href="https://gitweb.gentoo.org/repo/gentoo.git/atom/<%= package.atom %>?h=master" target="_blank">
+          </a>
+          <a class="dropdown-item" href="https://gitweb.gentoo.org/repo/gentoo.git/atom/<%= package.atom %>?h=master" target="_blank">
             <span class="fa fa-fw fa-rss"></span>
             <%= t :res_feed %>
-          </a></li>
-        </ul>
-      </div>
+          </a>
+        </div>
+
       </div>
       <%= package.description %>
       <br>

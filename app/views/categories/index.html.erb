@@ -1,17 +1,18 @@
 <ol class="breadcrumb">
-  <li><a href="/">Home</a></li>
-  <li class="active"><%= t :packages %></li>
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item active"><%= t :packages %></li>
 </ol>
+
 
 <h1><%= t :packages %></h1>
 
 <div class="row">
   <div class="col-md-9">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= t :browse_categories %></h3>
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0"><%= t :browse_categories %></h4>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <ul class="kk-col-list kk-4col-list kk-category-listing">
         <%- prev_letter = 'z' -%>
         <% @categories.each do |category| %>
@@ -25,24 +26,22 @@
     </div>
   </div>
   <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= t :update_feeds %></h3>
-      </div>
+    <div class="card">
+        <h4 class="card-header"><%= t :update_feeds %></h4>
       <div class="list-group">
-        <a href="<%= added_packages_path %>" class="list-group-item">
+        <a href="<%= added_packages_path %>" class="list-group-item list-group-item-action text-dark">
           <span class="fa fa-fw fa-history"></span>
           <%= t :added_packages %>
         </a>
-        <a href="<%= updated_packages_path %>" class="list-group-item">
+        <a href="<%= updated_packages_path %>" class="list-group-item list-group-item-action text-dark">
           <span class="fa fa-fw fa-asterisk"></span>
           <%= t :updated_packages %>
         </a>
-        <a href="<%= stable_packages_path %>" class="list-group-item">
+        <a href="<%= stable_packages_path %>" class="list-group-item list-group-item-action text-dark">
           <span class="fa fa-fw fa-check-circle-o"></span>
           <%= t :stable_packages %>
         </a>
-        <a href="<%= keyworded_packages_path %>" class="list-group-item">
+        <a href="<%= keyworded_packages_path %>" class="list-group-item list-group-item-action text-dark">
           <span class="fa fa-fw fa-circle-o"></span>
           <%= t :keyworded_packages %>
         </a>

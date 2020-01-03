@@ -212,6 +212,14 @@
   margin-top: -1.75em;
 }
 
+.kk-btn-xs {
+  padding: .0625rem .3125rem !important;
+  font-size: .75rem !important;
+  line-height: 1.5 !important;
+  border-radius: .2rem !important;
+  border-color: #adadad !important;
+}
+
 .kk-inline-changelog-entry {
   font-size: 90%;
   border-radius: 2px;
@@ -235,6 +243,18 @@
   .kk-commit {
     color: #999;
   }
+}
+
+.kk-success {
+  background-color: #dff0d8;
+}
+
+.kk-warning {
+  background-color: #fcf8e3;
+}
+
+.kk-danger {
+  background-color: #f2dede;
 }
 
 a.kk-ebuild-link {
