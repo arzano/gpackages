@@ -7,6 +7,7 @@ RUN git clone https://anongit.gentoo.org/git/repo/gentoo.git /mnt/packages-tree/
 COPY ./ /var/www/packages.gentoo.org/htdocs/
 WORKDIR /var/www/packages.gentoo.org/htdocs/
 RUN bundler install
+RUN yarn install --check-files
 
 # Git clones here.
 RUN cp /var/www/packages.gentoo.org/htdocs/config/secrets.yml.dist /var/www/packages.gentoo.org/htdocs/config/secrets.yml
@@ -14,5 +15,5 @@ RUN sed -i 's/set_me/ENV["SECRET_KEY_BASE"]/'g /var/www/packages.gentoo.org/htdo
 RUN cp /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb.dist /var/www/packages.gentoo.org/htdocs/config/initializers/kkuleomi_config.rb
 
 # Precompile our assets.
-RUN bundle exec rake assets:precompile
+RUN bundle exec rake webpacker:compile
 CMD ["bundler", "exec", "thin", "start"]

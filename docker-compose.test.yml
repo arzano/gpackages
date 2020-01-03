@@ -60,7 +60,8 @@ services:
       - redis
       - elasticsearch
     command: >
-      bash -c " bundle exec sidekiq -c 5 -e test"
+      bash -c " bundler install && yarn install --check-files
+      && bundle exec sidekiq -c 5"
   memcache:
     image: memcached:latest
     ports:

@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<%= javascript_include_tag 'packages/show' %>
+<%= javascript_pack_tag 'packages' %>
 <% content_for :head do %>
   <%= alternate_feed_link('https://gitweb.gentoo.org/repo/gentoo.git/atom/%s?h=master' % @package.atom, t(:raw_git_feed)) %>
 <% end %>

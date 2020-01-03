@@ -23,3 +23,7 @@ RUN eselect ruby set ruby25
 RUN gem install bundler -v 1.17.3
 
 RUN emerge dev-vcs/git
+
+RUN echo "sys-apps/yarn ~amd64" >> /etc/portage/package.accept_keywords/yarn
+RUN emerge sys-apps/yarn
+RUN ln -s /usr/lib64/node_modules/yarn/bin/yarnpkg /usr/bin/yarnpkg
