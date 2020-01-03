@@ -15,6 +15,8 @@ internally codenamed kkuleomi/꾸러미 which is Korean for package (who would h
  $ docker-compose up  
 ```
 
+If you don't use containers, please make sure that 'yarnpkg' is in your path. 
+
 ## Configuration
 
 `ELASTICSEARCH_URL` is where the app thinks ES lives; defaults to `localhost:9200`.
