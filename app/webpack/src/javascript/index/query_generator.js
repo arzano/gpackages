@@ -40,6 +40,7 @@ function parseSearchTerm(term){
 
 function addInput(self){
     var new_input = document.querySelector('#search-container > .row').cloneNode(true);
+    setEventListener(new_input);
     resetInput(new_input);
     document.querySelector('#search-container').append(new_input);
     checkDeleteButtons();
@@ -86,10 +87,13 @@ function getSecondParent(self) {
     return self.parentElement.parentElement;
 }
 
+function setEventListener(element){
+    element.querySelector(".pgo-query-add-btn").addEventListener("click", addInput);
+    element.querySelector(".pgo-query-delete-btn").addEventListener("click", function(){ deleteInput(this); });
+}
+
 checkDeleteButtons();
 
-windows.addInput = addInput
+setEventListener(document);
 
-$(".pgo-query-add-btn").click(function() {
-                         alert( "Handler for .click() called." );
-                       });
+document.getElementById("buildAdvancedQuery").addEventListener("click", function(){ buildAdvancedQuery(); });

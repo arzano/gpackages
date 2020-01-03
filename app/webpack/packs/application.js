@@ -18,9 +18,6 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-import JQuery from 'jquery';
-window.$ = window.JQuery = JQuery;
-
 require("turbolinks").start();
 import {} from 'jquery-ujs';
 import '../src/vendor/javascripts/moment.min';
