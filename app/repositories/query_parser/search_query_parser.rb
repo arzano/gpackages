@@ -122,11 +122,15 @@ module SearchQueryParser
           }
         }
       else
+        term = ('*' + term.downcase + '*') unless term.downcase.include? '*'
+        term.tr!(' ', '*')
         {
-          multi_match: {
-            query: term,
-            fields: ['atom^3', 'name^2']
-          }
+            wildcard: {
+                name_sort: {
+                    wildcard: term,
+                    boost: 4
+                }
+            }
         }
       end
     end
