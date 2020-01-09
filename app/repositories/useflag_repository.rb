@@ -14,7 +14,7 @@ class UseflagRepository < BaseRepository
 
   mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
-    indexes :name, type: 'text'
+    indexes :name, type: 'text', fields: { raw: { type: "keyword" } }
     indexes :description, type: 'text'
     indexes :atom, type: 'keyword'
     indexes :scope, type: 'keyword'
@@ -27,7 +27,7 @@ class UseflagRepository < BaseRepository
   def get_flags(name)
     result = { local: {}, global: [], use_expand: [] }
 
-    find_all_by(:name, name).each do |flag|
+    find_all_by("name.raw", name).each do |flag|
       case flag.scope
       when 'local'
         result[:local][flag.atom] = flag
