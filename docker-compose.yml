@@ -17,11 +17,9 @@ version: '3.2'
 #
 services:
   http-serving:
-    # Build from Dockerfile in .
-    image: gentoo/gpackages:latest
-    build: .
+    image: ${GPACKAGES_IMAGE:-gentoo/packages:latest}
     ports:
-      - 5000
+      - 127.0.0.1:5000:5000
     volumes:
       - type: volume
         source: portage
@@ -38,14 +36,14 @@ services:
       - RAILS_ENV=production
       - NODE_ENV=production
       - MEMCACHE_URL="memcache:11211"
-      - SECRET_KEY_BASE=6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50
+      - SECRET_KEY_BASE= ${SECRET_KEY_BASE:-6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50}
+    restart: always
     depends_on:
       - redis
       - elasticsearch
     command: bash -c "cp config/initializers/kkuleomi_config.rb.dist config/initializers/kkuleomi_config.rb && /var/www/packages.gentoo.org/htdocs/bin/first-run production"
   sidekiq:
-    image: gentoo/gpackages:latest
-    build: .
+    image: ${GPACKAGES_IMAGE:-gentoo/packages:latest}
     volumes:
       - type: volume
         source: portage
@@ -60,7 +58,8 @@ services:
       - REDIS_URL=redis://redis:6379
       - MEMCACHE_URL="memcache:11211"
       - ELASTICSEARCH_URL=elasticsearch:9200
-      - SECRET_KEY_BASE=6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50
+      - SECRET_KEY_BASE= ${SECRET_KEY_BASE:-6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50}
+    restart: always
     depends_on:
       - redis
       - elasticsearch
@@ -68,21 +67,29 @@ services:
       bash -c " cp config/initializers/kkuleomi_config.rb.dist config/initializers/kkuleomi_config.rb && bundler install && yarn install --check-files
       && bundle exec sidekiq -c 5"
   memcache:
-    image: memcached:latest
-    ports:
-      - 11211
+    image: memcached:${MEMCACHED_VERSION:-1.5}
+    restart: always
   elasticsearch:
     # TODO(antarus): We should build a docker image for this based on gentoo.
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.1
-    # Run in single-node config.
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION:-7.3.1}
+    volumes:
+      - ${ELASTICSEARCH_DATA_PATH:-/var/lib/elasticsearch/data/}:/usr/share/elasticsearch/data/
     environment:
-      - discovery.type=single-node
-    ports:
-      - 9200
+      - node.name=packages
+      - cluster.initial_master_nodes=packages
+      - cluster.routing.allocation.node_initial_primaries_recoveries=8
+      - cluster.routing.allocation.node_concurrent_outgoing_recoveries=8
+      - cluster.routing.allocation.node_concurrent_incoming_recoveries=8
+      - indices.recovery.max_bytes_per_sec=200mb
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: always
   redis:
-    image: redis:4.0.6
-    ports:
-      - 6379
+    image: redis:${REDIS_VERSION:-4.0.6}
+    restart: always
 
 volumes:
   portage:
