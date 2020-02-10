@@ -38,6 +38,8 @@ services:
       - MEMCACHE_URL="memcache:11211"
       - SECRET_KEY_BASE= ${SECRET_KEY_BASE:-6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50}
     restart: always
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
     depends_on:
       - redis
       - elasticsearch
@@ -60,6 +62,8 @@ services:
       - ELASTICSEARCH_URL=elasticsearch:9200
       - SECRET_KEY_BASE= ${SECRET_KEY_BASE:-6c9710aeb74dd88ff1d1b8f4bd6d7d8e0f340905d0974400fffd7246714aa703cf7bf4a98c0bc90317a3b803b82c0f9371e18ada19fc4eed9d6118077a249f50}
     restart: always
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
     depends_on:
       - redis
       - elasticsearch
@@ -90,6 +94,12 @@ services:
   redis:
     image: redis:${REDIS_VERSION:-4.0.6}
     restart: always
+  watchtower:
+    image: containrrr/watchtower:0.3.10
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --label-enable
 
 volumes:
   portage:
