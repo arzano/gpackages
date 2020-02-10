@@ -5,7 +5,7 @@ internally codenamed kkuleomi/꾸러미 which is Korean for package (who would h
 
 ## Build status
 
-* [![Travis-CI Build Status](https://travis-ci.org/gentoo/gpackages.svg?branch=master)](https://travis-ci.org/gentoo/gpackages)
+[![Travis-CI Build Status](https://travis-ci.org/gentoo/gpackages.svg?branch=master)](https://travis-ci.org/gentoo/gpackages)
 
 ## Installation instructions
 
