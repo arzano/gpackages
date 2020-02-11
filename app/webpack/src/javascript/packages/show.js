@@ -2,7 +2,7 @@ $(function() {
   var atom = $('#package-title').data('atom');
 
   $.ajax({
-    url: '/packages/' + atom + '/changelog'
+    url: '/packages/' + atom + '/changelog.html'
   }).done(function(data) {
     $('#changelog-container').html(data);
     $(document).trigger('kkuleomi:ajax');
