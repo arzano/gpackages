@@ -13,7 +13,7 @@ module Kkuleomi::Store
 
 		# In ES 1.5, we could use 1 mega-index. But in ES6, each model needs its own.
 		repositories.each { |repository|
-						repository.instance.create_index!(force: true, settings: settings)
+						repository.instance.create_index!(force: _force, settings: settings)
 		}
   end
 end
