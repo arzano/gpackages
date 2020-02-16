@@ -11,10 +11,5 @@ bundle exec rake webpacker:compile RAILS_ENV=production
 bundle exec rake kkuleomi:index:init RAILS_ENV=${1:-development}
 ./bin/update-all.sh ${1:-development}
 
-if [[ "${1:-development}" == "production" ]]
-then
-  crontab -l | { cat; echo "*/10 * * * * /var/www/packages.gentoo.org/htdocs/bin/update-all.sh ${1:-development}"; } | crontab -
-fi
-
 # Finally start the http server when the index is initialized
 bundle exec thin start -p 5000

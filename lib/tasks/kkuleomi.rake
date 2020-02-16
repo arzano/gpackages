@@ -2,6 +2,10 @@ namespace :kkuleomi do
   namespace :index do
     desc '(Re-)Initializes the ElasticSearch index'
     task init: :environment do
+      Kkuleomi::Store.create_index false
+    end
+
+    task recreate: :environment do
       Kkuleomi::Store.create_index true
     end
   end
