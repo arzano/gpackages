@@ -1,4 +1,4 @@
-@import "../vendor/tyrian/tyrian";
+@import "~@gentoo/tyrian/dist/tyrian";
 
 @import "about";
 @import "arches";
@@ -11,16 +11,3 @@
 @import "useflags";
 
 @import "../vendor/stylesheets/jquery.typeahead.min";
-
-body {
-  min-height: 100vh;
-  position: relative;
-  margin: 0;
-  padding-bottom: 215px;
-}
-footer {
-  position: absolute;
-  margin-top: 40px;
-  bottom: 0;
-  width: 100%;
-}
