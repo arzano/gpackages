@@ -1,5 +1,0 @@
-import:
-  - source: .travis/travis.yml
-    if: branch = master
-#  - source: .travis/travis.docker.yml
-#    if: branch = dev/main

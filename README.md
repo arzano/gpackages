@@ -3,10 +3,6 @@
 This is the code that powers [packages.gentoo.org](https://packages.gentoo.org/),
 internally codenamed kkuleomi/꾸러미 which is Korean for package (who would have thought!)
 
-## Build status
-
-[![Travis-CI Build Status](https://travis-ci.org/gentoo/gpackages.svg?branch=master)](https://travis-ci.org/gentoo/gpackages)
-
 ## Installation instructions
 
 ```shell script
