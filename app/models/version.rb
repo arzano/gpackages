@@ -172,15 +172,20 @@ class Version
       if local_flags.include? flag
         result[:local] << local_flag_map[flag].to_hsh
       else
-        useflag = UseflagRepository.find_by(:name, flag)
+        # TODO(arzano) we might find a cleaner solution here
+        # e.g. search for all use flags with matching name
+        # that haven't scope=local
+        useflags = UseflagRepository.find_all_by(:name, flag)
 
-        # This should not happen, but let's be sure
-        next unless useflag
+        for useflag in useflags do
+          # This should not happen, but let's be sure
+          next unless useflag
 
-        if useflag.scope == 'global'
-          result[:global] << useflag.to_hsh
-        elsif useflag.scope == 'use_expand'
-          result[:use_expand] << useflag.to_hsh
+          if useflag.scope == 'global'
+            result[:global] << useflag.to_hsh
+          elsif useflag.scope == 'use_expand'
+            result[:use_expand] << useflag.to_hsh
+          end
         end
       end
     end
