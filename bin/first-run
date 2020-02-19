@@ -4,6 +4,8 @@
 sleep 30
 
 bundler install
+yarn cache clean
+yarn install --network-concurrency 1
 yarn install --check-files
 bundle exec rake tmp:create RAILS_ENV=${1:-development}
 bundle exec rake tmp:cache:clear RAILS_ENV=${1:-development}
