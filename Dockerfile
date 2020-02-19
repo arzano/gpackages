@@ -27,6 +27,8 @@ RUN git clone https://anongit.gentoo.org/git/repo/gentoo.git /mnt/packages-tree/
 COPY ./ /var/www/packages.gentoo.org/htdocs/
 WORKDIR /var/www/packages.gentoo.org/htdocs/
 RUN bundler install
+RUN yarn cache clean
+RUN yarn install --network-concurrency 1
 RUN yarn install --check-files
 
 # Git clones here.
