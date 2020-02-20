@@ -13,7 +13,7 @@ atom_feed(id: atom_id(@feed_type, @feed_id, 'feed')) do |feed|
   all_packages.each do |package|
     atom = package.atom
 
-    commit = CommitRepository.find_sorted_by :packages, atom, :date, 'desc', 1
+    commit = CommitRepository.find_sorted_by :packages, atom, :committer_date, 'desc', 1
     commit = commit.first
 
     if package.nil?
