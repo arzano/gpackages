@@ -70,8 +70,17 @@
           </ul>
 
           <% unless @nav == :index %>
-            <form class="form-inline" role="search" action="<%= search_packages_path %>" method="get">
-              <input class="form-control" name="q" type="text" placeholder="Find Packages" aria-label="Find Packages">
+            <form class="form-inline inlinesearch" role="search" action="<%= search_packages_path %>" method="get">
+
+              <div class="input-group">
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                </div>
+
+                <input class="form-control" type="text" name="q" type="text" placeholder="Find Packages" aria-label="Find Packages">
+              </div>
+
             </form>
           <% end %>
 
