@@ -28,7 +28,7 @@ atom_feed(id: atom_id(@feed_type, @feed_id, 'feed')) do |feed|
       id: atom_id(@feed_type, @feed_id, id),
       url: absolute_link_to_package(atom)
     ) do |entry|
-      entry.updated commit ? commit.date.to_datetime.rfc3339 : Time.now.to_datetime.rfc3339
+      entry.updated commit ? commit.author_date.to_datetime.rfc3339 : Time.now.to_datetime.rfc3339
 
       entry.title(t(:feed_keyworded_title,
                     atom: atom,

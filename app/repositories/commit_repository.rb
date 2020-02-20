@@ -11,9 +11,12 @@ class CommitRepository < BaseRepository
 
   mapping dynamic: 'strict' do
     indexes :id, type: 'keyword'
-    indexes :author, type: 'keyword'
-    indexes :email, type: 'keyword'
-    indexes :date, type: 'date'
+    indexes :author_name, type: 'keyword'
+    indexes :author_email, type: 'keyword'
+    indexes :author_date, type: 'date'
+    indexes :committer_name, type: 'keyword'
+    indexes :committer_email, type: 'keyword'
+    indexes :committer_date, type: 'date'
     indexes :message, type: 'text'
     indexes :files do
       indexes :modified, type: 'keyword'

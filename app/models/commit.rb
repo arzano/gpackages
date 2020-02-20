@@ -3,9 +3,12 @@ class Commit
   include ActiveModel::Validations
 
   ATTRIBUTES = %i[id
-                  author
-                  email
-                  date
+                  author_name
+                  author_email
+                  author_date
+                  committer_name
+                  committer_email
+                  committer_date
                   message
                   files
                   packages

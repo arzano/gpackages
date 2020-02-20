@@ -6,7 +6,7 @@ class Portage::Util::History
       return [] if KKULEOMI_DISABLE_GIT == true
 
       latest_commit_id = KKULEOMI_FIRST_COMMIT
-      latest_commit = CommitRepository.n_sorted_by(1, 'date', 'desc').first
+      latest_commit = CommitRepository.n_sorted_by(1, 'committer_date', 'desc').first
 
       latest_commit_id = latest_commit.id unless latest_commit.nil?
 
@@ -14,7 +14,7 @@ class Portage::Util::History
             .cmd(KKULEOMI_GIT)
             .in(KKULEOMI_RUNTIME_PORTDIR)
             .args(
-              'log', '--name-status', '--no-merges', '--date=iso8601', '--reverse',
+              'log', '--name-status', '--no-merges', '--date=iso8601', '--format=fuller', '--reverse',
               "#{latest_commit_id}..HEAD")
             .run
 
@@ -35,10 +35,14 @@ class Portage::Util::History
         _id = commit_lines.shift.gsub('commit ', '').strip
 
         commit_lines.shift =~ /^Author:\s+(.*) <([^>]*)>$/
-        _author = $1
-        _email = $2
+        _author_name = $1
+        _author_email = $2
+        _author_date = Time.parse(commit_lines.shift[/^AuthorDate:\s+(.*)$/, 1]).utc
 
-        _date = Time.parse(commit_lines.shift[/^Date:\s+(.*)$/, 1]).utc
+        commit_lines.shift =~ /^Commit:\s+(.*) <([^>]*)>$/
+        _committer_name = $1
+        _committer_email = $2
+        _committer_date = Time.parse(commit_lines.shift[/^CommitDate:\s+(.*)$/, 1]).utc
 
         commit_lines.shift
         _raw_message = []
@@ -66,9 +70,12 @@ class Portage::Util::History
 
         commit = Commit.new
         commit.id = _id
-        commit.author = _author
-        commit.email = _email
-        commit.date = _date
+        commit.author_name = _author_name
+        commit.author_email = _author_email
+        commit.author_date = _author_date
+        commit.committer_name = _committer_name
+        commit.committer_email = _committer_email
+        commit.committer_date = _committer_date
         commit.message = _raw_message.map { |l| l.strip }.join("\n")
         commit.files = _files
         commit.packages = _packages.to_set

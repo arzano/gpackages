@@ -1,9 +1,22 @@
 <li class="list-group-item">
   <strong><%= annotate_bugs changelog.message.lines.first %></strong>
   <div class="kk-byline">
-    <%= mail_to changelog.email, changelog.author %>,
-    <%= i18n_date(changelog.date) %>,
-    commit&nbsp;<%= link_to_gitweb_commit changelog.id%>
+    <table>
+      <tr>
+        <td class="pr-3">author </td>
+        <td class="pr-3"><img class="rounded-sm inline" src="<%= gravatar_url changelog.author_email %>"> <%= changelog.author_name %> &lt;<%= changelog.author_email %>&gt;</td>
+        <td><%= i18n_date(changelog.author_date) %></td>
+      </tr>
+      <tr>
+        <td class="pr-3">committer </td>
+        <td class="pr-3"><img class="rounded-sm inline" src="<%= gravatar_url changelog.committer_email %>"> <%= changelog.committer_name%> &lt;<%= changelog.committer_email %>&gt;</td>
+        <td><%= i18n_date(changelog.committer_date) %></td>
+      </tr>
+      <tr>
+        <td class="pr-3">commit </td>
+        <td colspan="2"><%= full_link_to_gitweb_commit changelog.id%> (<a href="<%= gitweb_patch_url changelog.id%>">patch</a>)</td>
+      </tr>
+    </table>
   </div>
 
   <table class="table table-condensed kk-changelog-diffstat">

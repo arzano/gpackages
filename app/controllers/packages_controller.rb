@@ -42,7 +42,7 @@ class PackagesController < ApplicationController
 
     if stale?(etag: @package.updated_at, last_modified: @package.updated_at, public: true)
       @changelog = Rails.cache.fetch("changelog/#{@package.atom}") do
-        CommitRepository.find_sorted_by('packages', @package.category + '/' + @package.name, 'date', 'desc', 5)
+        CommitRepository.find_sorted_by('packages', @package.category + '/' + @package.name, 'committer_date', 'desc', 5)
       end
 
       respond_to do |wants|

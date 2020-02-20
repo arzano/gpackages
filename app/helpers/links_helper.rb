@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module LinksHelper
   # Slash-in-Link-Fix
   # Replaces the URLencoded slash with a proper slash
@@ -10,6 +12,21 @@ module LinksHelper
             gitweb_commit_url(commitid),
             title: commitid,
             class: 'kk-commit'
+  end
+
+  def full_link_to_gitweb_commit(commitid)
+    link_to commitid,
+            gitweb_commit_url(commitid),
+            title: commitid,
+            class: 'kk-commit'
+  end
+
+  def gitweb_patch_url(commitid)
+    'https://gitweb.gentoo.org/repo/gentoo.git/patch/?id=%s' % commitid
+  end
+
+  def gravatar_url(email)
+    'https://www.gravatar.com/avatar/' + Digest::MD5.hexdigest(email.downcase).to_s + '?s=13&amp;d=retro'
   end
 
   def gitweb_commit_url(commitid)
