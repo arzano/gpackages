@@ -1,18 +1,16 @@
 <li class="list-group-item">
-  <strong><%= annotate_bugs changelog.message.lines.first %></strong>
+  <strong><%= annotate_bugs changelog.message.lines.first %></strong><span class="float-right" style="font-size:0.825rem;"><%= link_to_gitweb_commit changelog.id%></span>
   <div class="kk-byline">
 
-    <img class="rounded-sm inline" data-toggle="popover" data-img="http://placehold.it/400x200" src="<%= gravatar_url changelog.author_email %>">
-    <%= mail_to changelog.author_email, changelog.author_name %>
-    <%= i18n_date(changelog.author_date) %>,
-
-    <% if changelog.author_name != changelog.committer_name || changelog.author_date != changelog.committer_date %>
-      <img class="rounded-sm inline" src="<%= gravatar_url changelog.committer_email %>">
-      <%= mail_to changelog.committer_email, changelog.committer_name%>
-      <%= i18n_date(changelog.committer_date) %>,
+    <% if changelog.author_name != changelog.committer_name %>
+      <span data-toggle="tooltip" title="authored on <%= changelog.author_date %>"><img class="rounded-sm inline" data-toggle="popover" data-img="http://placehold.it/400x200" src="<%= gravatar_url changelog.author_email %>">
+      <%= mail_to changelog.author_email, changelog.author_name %> authored</span> and&nbsp;
     <% end %>
 
-    commit <%= link_to_gitweb_commit changelog.id%>
+    <img class="rounded-sm inline" src="<%= gravatar_url changelog.committer_email %>">
+    <%= mail_to changelog.committer_email, changelog.committer_name%> committed on
+    <%= i18n_date(changelog.committer_date) %>
+
   </div>
 
   <table class="table table-condensed kk-changelog-diffstat">
