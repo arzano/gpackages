@@ -126,7 +126,7 @@ module SearchQueryParser
         term.tr!(' ', '*')
         {
             wildcard: {
-                name_sort: {
+                atom: {
                     wildcard: term,
                     boost: 4
                 }
