@@ -69,7 +69,7 @@ class Version
   # @param [String] arch Architecture to query
   # @return [Symbol] Keyword status
   def effective_keyword(arch)
-    if is_masked?
+    if is_masked?(arch)
       :masked
     else
       keyword(arch)
